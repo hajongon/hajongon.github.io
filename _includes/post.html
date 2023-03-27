@@ -1,0 +1,41 @@
+<article class="post">
+  <header class="post-header">
+    <div class="post-title"> 
+      {{ page.title | escape }}
+    </div>
+    <time class="post-date dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+      {%- assign date_format = site.date_forma | default: "%Y/%m/%d" -%}
+      {{ page.date | date: date_format }}
+    </time>    
+  </header>
+
+	<div class="post-wrapper">
+  <div class="post-content">
+    {{ content }}
+  </div>
+</div>
+</article>
+
+<script>
+  const contentEl = document.querySelector('.post-content'); // 게시글 내용을 감싸는 요소
+  const tocEl = document.createElement('div'); // 목차를 감싸는 요소
+  tocEl.id = 'toc'; // 요소의 id를 설정
+  contentEl.parentNode.insertBefore(tocEl, contentEl); // 목차 요소를 게시글 내용 요소 앞에 삽입
+
+  tocbot.init({
+    
+    tocSelector: '#toc',
+    contentSelector: '.post-content',
+    headingSelector: 'h1, h2, h3, h4, h5',
+    hasInnerContainers: true,
+  });
+</script>
+
+<!-- toc -->
+<!-- {% if page.toc %}
+<div id="toc" class="toc">
+	<h2>Contents</h2>
+	{{ content | toc_only }}
+</div>
+{% endif %} -->
+

@@ -1,0 +1,486 @@
+@import url(./custom.css);
+
+/* 타이틀 폰트 수정 */
+
+@import url("https://fonts.googleapis.com/css2?family=Lilita+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lilita+One&family=Noto+Sans+KR&display=swap");
+
+@import url(//fonts.googleapis.com/css?family=Ubuntu:500&subset=latin,latin-ext);
+@import url("https://fonts.googleapis.com/css?family=Gelasio|Kulim+Park|Nanum+Myeongjo|Nanum+Gothic|Noto+Sans|Noto+Sans+KR|Roboto&display=swap");
+@import url(syntax/monokai.css);
+
+:root {
+  --blue: #007bff;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --yellow: #ffc107;
+  --green: #28a745;
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --white: #fff;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+  --primary: #007bff;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --font-family-sans-serif: "Roboto", "Nanum Gothic";
+  --font-family-serif: "Noto Sans KR";
+}
+
+* {
+  box-sizing: border-box;
+}
+
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+  display: block;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans KR";
+  color: #2c3e50;
+}
+
+a {
+  text-decoration: none;
+  color: #007bff;
+  background-color: transparent;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+pre {
+  font-size: 1rem;
+  font-weight: lighter;
+  display: block;
+  overflow: auto;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  padding: 5px;
+  line-height: 1.5;
+}
+
+code {
+  font-family: "Menlo", "Consolas", monospace;
+  font-size: 0.9em;
+  margin: 0px;
+}
+
+.container {
+  min-height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row nowrap;
+}
+
+.content {
+  /*margin-left: 180px;*/
+  width: 80%;
+  flex: 1 1 auto;
+  display: flex;
+}
+
+.sidebar {
+  /*position: fixed;*/
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 0 0 220px;
+  padding: 15px;
+  z-index: 1;
+  background-color: #222;
+  color: #fff;
+}
+
+.sidebar-item {
+  display: block;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding-inline-start: 0px;
+}
+
+.sidebar-brand > a {
+  font-size: 300%;
+  font-family: "Lilita One", cursive;
+  color: #fff;
+}
+
+.lead {
+  margin-top: 20px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 100%;
+  color: #aaa;
+}
+
+.sidebar-header {
+  margin-bottom: 50px;
+}
+
+.sidebar-nav {
+  margin-top: 20px;
+}
+
+.nav-title {
+  font-size: 100%;
+  font-family: "Noto Sans";
+  text-transform: uppercase;
+  border-bottom: 1px solid gray;
+  margin-bottom: 5px;
+}
+
+a.nav-item {
+  font-size: 120%;
+  font-family: "Noto Sans";
+  text-transform: capitalize;
+  color: #aaa;
+}
+
+a.nav-item:hover {
+  color: #777;
+}
+
+.badge {
+  font-size: 70%;
+}
+.badge::before {
+  content: "(";
+}
+.badge::after {
+  content: ")";
+}
+
+.post-list > li {
+}
+
+.post-link {
+  margin-left: 10px;
+  font-size: 110%;
+  color: #333;
+}
+
+#contact-list li .fa,
+article .share .btn {
+  -o-transition: color 0.2s ease-out, background 1s ease-in;
+  -ms-transition: color 0.2s ease-out, background 1s ease-in;
+  -moz-transition: color 0.2s ease-out, background 1s ease-in;
+  -webkit-transition: color 0.2s ease-out, background 1s ease-in;
+  transition: color 0.2s ease-out, background 1s ease-in;
+}
+#contact-list li:hover .fa-twitter,
+article .share .twitter:hover {
+  color: #00acee;
+  border-color: #00acee;
+}
+#contact-list li:hover .fa-linkedin {
+  color: #1d87bd;
+}
+#contact-list li:hover .fa-envelope {
+  color: #e93e30;
+}
+#contact-list li:hover .fa-pinterest {
+  color: #cc2127;
+}
+#contact-list li:hover .fa-rss {
+  color: #e74c3c;
+}
+#contact-list-secondary {
+  padding-bottom: 10px;
+}
+
+article .share .facebook:hover {
+  color: #43609c;
+  border-color: #43609c;
+}
+article .share .gplus:hover {
+  color: #c13929;
+  border-color: #c13929;
+}
+
+.page-header {
+  color: #e74c3c;
+  text-shadow: 1px 1px 1px rgba(150, 150, 150, 1);
+}
+
+article {
+  width: 100%;
+  padding: 0 5% 0;
+  font-size: 17px;
+  margin-bottom: 100px;
+  line-height: 1.9;
+}
+
+/* toc, post-content 정렬, toc 디자인 */
+
+.post-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.post-content {
+  /* margin-right: 5%; */
+  width: 80%;
+  overflow: hidden;
+}
+
+#toc {
+  margin-top: 5%;
+  /* margin-right: 0%; */
+  margin-left: 2%;
+  width: fit-content;
+  max-width: 20%;
+  
+  overflow-y: auto;
+  font-size: 0.8rem;
+  padding: 1rem;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  height: max-content;
+  position: sticky;
+  top: 200px;
+}
+
+#toc a {
+  color: black;
+}
+
+/* 끝 */
+
+article.home div a,
+article.home pre a {
+  color: #2c3e50;
+}
+article.home div a:hover,
+article.home pre a:hover {
+  color: #2c3e50;
+  text-decoration: none;
+}
+article img {
+  max-width: 100%;
+}
+
+blockquote {
+  color: #828282;
+  border-left: 4px solid #ccc;
+  padding-left: 10px;
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+  font-family: "Roboto", "Nanum Gothic";
+  color: #333;
+  margin-bottom: 0;
+}
+
+article.home h1 a,
+article.home h2 a,
+article.home h3 a,
+article.home h4 a {
+  color: #f2756a;
+}
+article.home h1 a:hover,
+article.home h2 a:hover,
+article.home h3 a:hover,
+article.home h4 a:hover {
+  color: #e74c3c;
+}
+
+h1 {
+  display: block;
+  font-size: 2em;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+header.post-header {
+  padding: 50px 0px 10px 0px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+
+header.home {
+  text-align: left;
+}
+
+.post-title {
+  font-size: 1.5em;
+  color: #111;
+  font-weight: bold;
+}
+
+.post-date {
+  text-transform: uppercase;
+  color: #555;
+  letter-spacing: 1px;
+  font-size: 0.8em;
+  display: inline-block;
+  width: 80px;
+}
+
+.author .author-image {
+  float: left;
+  margin-right: 20px;
+}
+
+footer {
+  padding-top: 15px;
+  font-family: "Ubuntu";
+}
+
+.sidebar-footer {
+  margin-top: 80px;
+  font-size: 0.75em;
+  font-weight: lighter;
+  font-family: "Roboto";
+  line-height: 1.5;
+}
+
+.sidebar-footer a {
+  color: #ccc;
+}
+
+/* @media (max-width: 1000px) {
+  #toc {
+    display: none;
+  }
+  .post-content {
+    width: 100%;
+  }
+
+} */
+
+@media (max-width: 576px) {
+  #toc {
+    display: none;
+  }
+
+  article {
+    font-size: 1em;
+    line-height: 1.5;
+  }
+
+  .content {
+    padding: 0px;
+    width: 100%;
+  }
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    font-size: 0.8em;
+    flex: 0 0 auto;
+    flex-flow: row nowrap;
+    height: auto;
+  }
+
+  .sidebar-nav {
+    margin: 0px;
+  }
+
+  .sidebar-item {
+    flex: 1 1 auto;
+  }
+
+  .sidebar-header {
+    margin-bottom: 0px;
+  }
+
+  .sidebar-footer {
+    flex: 0 0 0px;
+    visibility: hidden;
+    display: none;
+  }
+
+  pre {
+    font-size: 0.8rem;
+  }
+}
+
+/* custom */
+
+/* 코드블럭 전체 크기 */
+figure.highlight {
+  width: 100%;
+}
+
+/* 인라인 코드 */
+code.highlighter-rouge {
+  font-size: 1rem;
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
+  padding: 0.2rem;
+  background-color: rgb(230, 230, 230);
+}
+
+/* .highlighter-rouge > .highlight {
+  width: 80%;
+  padding: 0.2rem;
+} */
+
+hr {
+  border-style: dotted;
+  border-width: 0.5px;
+  border-color: rgb(232, 232, 232);
+}
+
+::selection {
+  background-color: yellow;
+}
+
+img {
+  padding: 1rem;
+  border: 1px solid rgb(229, 229, 229);
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 40px;
+  margin-inline-end: 40px;
+}
