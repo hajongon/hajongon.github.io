@@ -272,6 +272,16 @@ article {
   top: 200px;
 }
 
+#toc ol {
+  margin-left: 0;
+  padding-left: 1em;
+}
+#toc .node-name--H1 {
+  background-color: rgb(255, 255, 126);
+  
+  font-weight: bolder;
+}
+
 #toc a {
   color: black;
 }
@@ -446,12 +456,13 @@ footer {
 
 /* custom */
 
-/* 코드블럭 전체 크기 */
+/* 코드블럭 전체 너비 */
 figure.highlight {
-  width: 100%;
+  width: 80%;
+  border: 1px solid lightgray;
 }
 
-/* 인라인 코드 */
+/* 인라인 코드 스타일 */
 code.highlighter-rouge {
   font-size: 1rem;
   margin-left: 0.1rem;
@@ -465,18 +476,24 @@ code.highlighter-rouge {
   padding: 0.2rem;
 } */
 
+/* 가로줄 스타일 */
 hr {
   border-style: dotted;
   border-width: 0.5px;
   border-color: rgb(232, 232, 232);
 }
-
+/* 드래그 스타일 */
 ::selection {
   background-color: yellow;
 }
 
+pre ::selection {
+  background-color: rgb(65, 65, 65);
+}
+
+/* 이미지 */
 img {
-  padding: 1rem;
+  
   border: 1px solid rgb(229, 229, 229);
   display: block;
   margin-block-start: 1em;
@@ -484,3 +501,11 @@ img {
   margin-inline-start: 40px;
   margin-inline-end: 40px;
 }
+/* 임베디드 스타일 */
+iframe {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 40px;
+  margin-inline-end: 40px;
+}
+
