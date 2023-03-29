@@ -137,7 +137,7 @@ plugins: [
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>My App <%= htmlWebpackPlugin.options.templateParameters.env %></title>
+    <title>My App <%= env %></title>
   </head>
   <body>
     ...
@@ -148,7 +148,7 @@ plugins: [
 
 <br>
 
-위 예시에서 `<%= htmlWebpackPlugin.options.templateParameters.env %>`는 `env` 파라미터의 값을 출력하는 EJS 문법이다. 
+위 예시에서 `<%= env %>`는 `env` 파라미터의 값을 출력하는 EJS 문법이다. 
 <br>따라서 개발모드에서는 페이지 제목이 'My App (개발중)'으로 출력되고, 배포모드에서는 'My App'으로 출력된다.
 
 
