@@ -424,4 +424,5 @@ module.exports = {
 # 참고자료
 ---
 [husbumps 개발로그](https://velog.io/@husbumps/TS-Boilerplate-1) <br>
-[공식문서](https://webpack.js.org/concepts/)
+[공식문서](https://webpack.js.org/concepts/)<br>
+[udemy TypeScript 강좌 Section 11](https://www.udemy.com/course/best-typescript-21/)
