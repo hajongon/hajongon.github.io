@@ -458,7 +458,7 @@ footer {
 
 /* 코드블럭 전체 너비 */
 figure.highlight {
-  width: 80%;
+  width: 800px;
   border: 1px solid lightgray;
 }
 
@@ -509,3 +509,29 @@ iframe {
   margin-inline-end: 40px;
 }
 
+
+/* 목록 스타일링 */
+
+li {
+  list-style-type: none;
+}
+
+
+ul > li::before {
+  content: "-";
+  margin-right: 1rem;
+}
+
+/* toc */
+ol {
+  list-style-type: inherit;
+}
+
+ol > li {
+  list-style-type: none;
+}
+
+ol > li::before {
+  content: "-";
+  margin-right: 0.5rem;
+}
