@@ -2,7 +2,7 @@
 layout: post
 title: 타입스크립트 webpack 기초
 date: 2023-03-29 00:00:00 +0900
-category: React
+category: TypeScript
 published: true
 ---
 
