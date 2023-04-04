@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 가계부 만들기(React, TypeScript, Redux)
-date: 2023-03-31 00:00:00 +0900
-category: AWS
+date: 2023-04-04 00:00:00 +0900
+category: project
 published: true
 ---
 
