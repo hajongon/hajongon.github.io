@@ -1,0 +1,241 @@
+---
+layout: post
+title: 가계부 만들기(React, TypeScript, Redux)
+date: 2023-03-31 00:00:00 +0900
+category: AWS
+published: true
+---
+
+## 개요
+
+<br>
+
+      💸 내 돈은 내가 지배한다. 쓸 데 없는 기능 다 뺀 컴팩트한 가계부 만들기 도전!
+
+
+<br>
+
+## 프로젝트 구성
+
+- 2023년 4월 4일 기준
+<br>
+
+![project diagram](/public/img/project/ledger/bigdiagram.png){: width="800px"}
+<br>
+<br>
+
+## 페이지 구성
+
+<br>
+
+- 결제 입력
+  - 결제 날짜, 결제 내역, 결제 금액을 입력하는 페이지
+  - 전역 상태: `paymentInfo`
+  - 구현 화면
+
+<br>
+
+![payment-input](/public/img/project/ledger/payment-input.png){: width="800px"}
+<br>
+
+![delete-confirm](/public/img/project/ledger/delete-confirm.png){: width="800px"}
+
+<br>
+
+  - 결제 내역
+    - 현재까지 로컬스토리지에 저장된 결제 내역을 볼 수 있는 페이지
+    - 전역 상태: `filtered`
+    - 기간, 결제 내역에 따른 필터링 가능
+    - 총 금액 표시
+    - 구현 화면
+
+<br>
+
+![search](/public/img/project/ledger/search.png){: width="800px"}
+<br>
+
+- 고정 지출
+  - 매월 고정적으로 나가는 비용을 기재해둘 수 있는 페이지
+  - 전역 상태: `fixedCosts`
+  - 총 금액 표시 기능
+  - 구현 화면
+
+<br>
+
+![fixed costs](/public/img/project/ledger/fixed.png){: width="800px"}
+
+<br>
+<br>
+
+## Redux
+
+<br>
+Redux로 총 세 개의 전역 상태를 관리한다. depth가 얕은 `state`는 굳이 전역으로 관리하지 않는다.
+<br>
+
+`deleteItem`도 사용되는 depth가 깊긴 한데,
+해당 함수 내에서 `state`를 변경하고 있어서 `slice`를 어떤 식으로 만들어야할지 아직 감이 오지 않는다. <br>좀 더 알아봐야 할 듯!
+
+<br>
+<br>
+
+## Type
+
+<br>
+
+### prop, slice
+
+<br>
+
+`prop`을 전송하면 무조건 타입을 기재해야 한다. (자식 컴포넌트 코드에)<br>
+입력하지 않으면 부모가 자식에게 `prop`을 물려주는 부분에서 에러가 발생한다.<br>
+<br>
+
+`redux`로 만든 상태를 받아서 사용할 때도 상태를 기재해야 한다. (`useSelector` 사용할 때)
+
+<br>
+이번 프로젝트에서는 크게 총 다섯가지의 타입을 따로 분리해서 사용했다.
+
+- `PaymentInfoTypes`: 입력한 결제 정보를 저장하는 배열의 타입.
+
+  {% highlight typescript linenos %}
+  type PaymentInfoTypes = {
+    paymentInfo: { id: string, name: string, amount: number, date: string }[],
+  };
+  {% endhighlight%}
+
+- `FilteredTypes`: 결제 내역 페이지에서 사용할 배열의 타입. 검색하면서 필터링될 때 <br>
+
+  - (`PaymentInfo` 원본 배열을 건드리지 않기 위해 `Filtered`를 만들어서 썼음.)
+  - 하나로 관리하면 훨씬 편리할 것 같아서 리팩토링 해볼 예정
+
+    {% highlight typescript linenos %}
+
+    type FilteredTypes = {
+      filtered: { id: string, name: string, amount: number, date: string }[],
+    };
+    {% endhighlight%}
+
+- `DeleteTypes`: `deleteItem`이라는 함수를 `prop`으로 전송해야 해서 만든 타입.
+
+{% highlight typescript linenos %}
+
+type DeleteTypes = {
+  deleteItem: (id: string) => void,
+};
+{% endhighlight%}
+
+- `FixedCostsTypes`: 고정 지출을 저장하는 배열의 타입. `PaymentInfo`와는 아예 별개.
+  {% highlight typescript linenos %}
+  type FixedCostsTypes = {
+    fixedCosts: { id: string, name: string, amount: number, date: string }[],
+  };
+  {% endhighlight%}
+
+- `DeleteFixedCost`: 고정 지출을 삭제하는 함수의 타입.
+  {% highlight typescript linenos %}
+  type DeleteFixedCost = {
+    deleteFixedCost: (id: string) => void,
+  };
+  {% endhighlight%}
+
+`prop`이나 `slice`를 사용할 때의 타입은 기본적으로 객체 형태를 사용했고,<br>
+내부 `property`에 내가 사용하고자 하는 요소의 타입을 제네릭으로 기재했다.
+
+  {% highlight typescript linenos %}
+const DeleteModal: React.FC<DeleteModalTypes> = ({
+  deleteConfirmed,
+  deleteCancelled,
+  isDeleteModalCheckboxChecked,
+  isDeleteModalOpen,
+  setIsDeleteModalOpen,
+  checkboxChanged,
+  itemToDelete,
+}) => {
+    //...
+  };
+
+  return (
+    <>
+      // ...
+    </>
+  );
+};
+ {% endhighlight%}
+<br>
+
+`slice`를 가져와 쓸 때는 다음과 같은 방식으로 타입을 기재했다.
+{% highlight typescript linenos %}
+const paymentInfo = useSelector(
+  (state: PaymentInfoTypes) => state.paymentInfo
+);
+const fixedCosts = useSelector((state: FixedCostsTypes) => state.fixedCosts);
+{% endhighlight%}
+<br>
+
+### 기타 타입
+
+- `React.ChangeEvent`: 체크박스가 체크되었는지의 여부를 판단할 때 사용했다.
+
+{% highlight typescript linenos %}
+const checkboxChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setIsDeleteModalCheckboxChecked(event.target.checked);
+};
+{% endhighlight%}
+<br>
+
+- `React.Dispatch`: `redux`의 `dispatch` 타입을 정의한다.
+  {% highlight typescript linenos %}
+  type DeleteModalTypes = {
+    deleteConfirmed: () => void,
+    deleteCancelled: () => void,
+    isDeleteModalCheckboxChecked: boolean,
+    isDeleteModalOpen: boolean,
+    // React.Dispatch 타입
+    setIsDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    checkboxChanged: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    itemToDelete: string,
+  };
+  {% endhighlight%}
+
+- `React.MouseEvent`: click 이벤트를 받을 때 사용했다. (모달 백그라운드 클릭 시 모달 창 close)
+  {% highlight typescript linenos %}
+  const handleBackClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    setIsDeleteModalOpen(false);
+    // 이벤트 버블링 막기
+    e.stopPropagation();
+  };
+  {% endhighlight%}
+  <br>
+  <br>
+  <br>
+
+
+## 업데이트 예정
+
+- 서버 및 로그인 기능
+- `오늘 날짜` 띄우기
+- `오늘 날짜`를 입력 받아 고정 지출을 결제 내역에 추가
+- 코드 리팩토링
+- 고정 지출 총 금액이 컨테이너 최하단에 위치하게끔 수정
+
+<br>
+<br>
+
+## 에러 및 놓친 부분
+<br>
+
+### 😫 uuid 중복
+  - `form`으로 받은 인풋을 submit할 때 `uuid`를 초기화해주지 않았음.
+  - `handleSubmit` 함수 마지막에 `setId(uuidv4());` 추가
+<br>
+
+### 😫 Provider 에러
+  - `could not find react-redux context value; please ensure the component is wrapped in a <Provider>`
+  - `index.tsx`에서 `<App />` 컴포넌트를 `<Provider />`로 감싸지 않았음.
+<br>
+
+### 😫 로컬스토리지 충돌
+  - `fixedCosts`가 '결제 입력', '결제 내역' 페이지에 렌더링되는 현상
+  - `app.tsx`에서 로컬스토리지 `paymentInfo`를 불러오고 있어서 충돌이 있었던 것으로 보임.
+<br>

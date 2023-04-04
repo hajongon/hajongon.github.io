@@ -261,7 +261,7 @@ article {
   margin-left: 2%;
   width: fit-content;
   max-width: 20%;
-  
+
   overflow-y: auto;
   font-size: 0.8rem;
   padding: 1rem;
@@ -278,7 +278,7 @@ article {
 }
 #toc .node-name--H1 {
   background-color: rgb(255, 255, 126);
-  
+
   font-weight: bolder;
 }
 
@@ -471,6 +471,19 @@ code.highlighter-rouge {
   background-color: rgb(230, 230, 230);
 }
 
+/* 인용구 스타일 */
+div.highlighter-rouge {
+  width: 800px;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 40px;
+  margin-inline-end: 40px;
+}
+
+div.highlighter-rouge > div > pre > code {
+  font-size: 1.2rem;
+}
+
 /* .highlighter-rouge > .highlight {
   width: 80%;
   padding: 0.2rem;
@@ -493,7 +506,6 @@ pre ::selection {
 
 /* 이미지 */
 img {
-  
   border: 1px solid rgb(229, 229, 229);
   display: block;
   margin-block-start: 1em;
@@ -509,13 +521,11 @@ iframe {
   margin-inline-end: 40px;
 }
 
-
 /* 목록 스타일링 */
 
 li {
   list-style-type: none;
 }
-
 
 ul > li::before {
   content: "-";
