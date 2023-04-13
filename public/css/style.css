@@ -277,8 +277,8 @@ article {
   padding-left: 1em;
 }
 #toc .node-name--H1 {
-  background-color: rgb(255, 255, 126);
-
+  /* background-color: rgb(255, 255, 126); */
+  font-size: 1rem;
   font-weight: bolder;
 }
 
@@ -467,8 +467,11 @@ code.highlighter-rouge {
   font-size: 1rem;
   margin-left: 0.1rem;
   margin-right: 0.1rem;
-  padding: 0.2rem;
-  background-color: rgb(230, 230, 230);
+  padding: 0.2rem 0.4rem 0.2rem 0.4rem;
+
+  background-color: #eeeeec;
+  color: #eb5757;
+  border-radius: 10%;
 }
 
 /* 인용구 스타일 */
@@ -523,25 +526,30 @@ iframe {
 
 /* 목록 스타일링 */
 
-li {
+/* li {
+  list-style-type: none;
+} */
+
+ul > li {
   list-style-type: none;
 }
 
 ul > li::before {
   content: "-";
   margin-right: 1rem;
+  margin-left: -2rem;
 }
 
 /* toc */
-ol {
+/* ol {
   list-style-type: inherit;
-}
+} */
 
 ol > li {
-  list-style-type: none;
+  /* list-style-type: none; */
 }
 
-ol > li::before {
+/* ol > li::before {
   content: "-";
   margin-right: 0.5rem;
-}
+} */
