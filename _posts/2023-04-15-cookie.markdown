@@ -1,0 +1,409 @@
+---
+layout: post
+title: Cookie를 사용한 로그인 기능
+date: 2023-04-15 00:00:00 +0900
+category: Auth
+published: true
+comments: true
+---
+
+# Cookie란?
+---
+HTTP 프로토콜의 무상태성을 보완해주는 도구. <br>
+하지만 원래는 보안 목적으로 만들어진 것이 아니다.<br>
+
+- 특정 팝업창을 10일간 띄우지 않기
+- 광고 서비스(쿠키를 기반으로 추천 광고를 띄움)
+
+요런 것들에 주로 쓰였다.<br>
+<br>
+
+Cookie는 사용자 선호, 테마, 로그인 유지 등 장시간 보존해야 하는 정보 저장에 적합하다.<br>
+회사가 필요로 하는 마케팅 정보를 수집하는 데에도 쓰인다.<br>
+
+
+- 쿠키는 서버가 웹 브라우저에 정보를 저장하고, 또 불러올 수 있게 해주는 수단
+- 해당 도메인에 쿠키가 존재하면, 웹 브라우저는 도메인에게 **http 요청 시 쿠키를 함께 전달**
+
+
+
+ 
+
+## Cookie Options
+
+- `Domain`: 서버와 요청의 도메인이 일치하는 경우 쿠키 전송
+- `Path`: 서버와 요청의 세부 경로가 일치하는 경우 쿠키 전송
+- `MaxAge` or `Expires`: 쿠키의 유효기간 설정
+- `HttpOnly`: 스크립트의 쿠키 접근 가능 여부 결정
+- `Secure`: HTTPS 프로토콜에서만 쿠키 전송 여부 결정
+- `SameSite`: CORS 요청의 경우 옵션 및 메서드에 따라 쿠키 전송 여부 결정
+
+
+
+### MaxAge와 Expires
+<br>
+
+- 어떨 때 쓰는 건가?
+  - 고객이 PC방에 갔다가 로그아웃을 하지 않고 나온 경우에,<br> 쿠키에 `MaxAge` 혹은 `Expires` 옵션이 있다면<br> 서버가 일정 시간이 지난 후 해당 쿠키를 자동 소멸시킬 수 있다.<br>
+
+
+<br>
+
+
+- 특징
+  - `Expires`: 쿠키의 만료일을 설정하는 데 사용한다. Expires는 HTTP 헤더의 속성으로 사용된다.<br> 이 속성의 값은 만료 일시를 나타내며 GMT 형식으로 표시된다. <br>예를 들어, `Expires=Tue, 07 Mar 2023 10:00:00 GMT`와 같이 설정할 수 있다.
+  - `Max-Age`: 쿠키의 만료 시간(초)을 설정하는 데 사용한다. `Max-Age`는 HTTP 헤더의 속성으로 사용된다.<br> 이 속성의 값은 쿠키가 만료되기까지의 초 단위의 시간을 나타낸다. 예를 들어, `Max-Age=3600`과 같이 설정할 수 있다.
+ 
+
+- 차이점
+  - `Expires`는 쿠키의 만료 일시를 설정하기 때문에, 클라이언트와 서버 간의 시간 차이에 따라 쿠키의 만료가 예상과 다를 수 있다. 반면, `Max-Age`는 쿠키의 만료 시간을 초 단위로 설정하기 때문에, 시간 차이에 대한 문제가 발생하지 않는다.
+  - 따라서, `Max-Age`를 사용하면 쿠키의 만료 시간을 더 정확하게 제어할 수 있다.<br> 하지만 일부 오래된 브라우저에서는 `Max-Age`를 지원하지 않기 때문에, 브라우저 호환성을 고려해야 한다.
+
+ 
+
+ 
+
+ 
+<br>
+ 
+
+# Practice
+---
+아래 구조도에 따라 실제 로직을 구현해보자.
+<br>
+<br>
+
+![login-by-cookie](/public/img/auth/loginbycookie.png){: width="600px"}
+<br>
+
+최초 접속 시 로그인 화면 렌더링<br>
+→ db에 존재하는 ID와 비밀번호로 로그인 할 경우 `MyPage` 출력 <br>
+→ 로그아웃 버튼을 누르면 다시 로그인 페이지로 이동 <br>
+<br>
+🐶 '로그인 상태 유지' 체크박스를 활성화 시켰을 경우에, 브라우저를 껐다 켜도 로그인이 유지되어 있어야 함.<br>
+
+<br>
+
+## Login 컴포넌트
+
+<br>
+로그인 버튼을 눌렀을 때 호출되는 함수부터 살펴보자.
+
+{% highlight jsx linenos %}
+export default function Login({ setIsLogin, setUserInfo }) {
+  const [loginInfo, setLoginInfo] = useState({
+    userId: "",
+    password: "",
+  });
+  const [checkedKeepLogin, setCheckedKeepLogin] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const handleInputValue = (key) => (e) => {
+    setLoginInfo({ ...loginInfo, [key]: e.target.value });
+  };
+  const loginRequestHandler = () => {
+  
+    if (!loginInfo.userId || !loginInfo.password) {
+      setErrorMessage("아이디와 비밀번호를 입력하세요");
+      // 입력되지 않은 값이 있으니 post 요청을 보낼 필요도 없이 바로 리턴
+      return;
+    }
+
+    // Login 컴포넌트가 가지고 있는 state를 이용해 로그인을 구현
+    // 로그인에 필요한 유저정보가 충분히 제공되지 않았다면 에러 메시지가 뜨도록 구현
+ 
+    return axios
+      // login을 담당하는 endpoint
+      .post("http://localhost:4000/login", { loginInfo, checkedKeepLogin })
+      .then((res) => {
+        // 로그인에 성공했다면 응답으로 받은 데이터가 Mypage에 렌더링되도록 State를 변경
+        setUserInfo(res.data);
+        setIsLogin(true);
+ 
+        //여기에서 에러 초기화
+        setErrorMessage("");
+      })
+      .catch((err) => {
+        // 로그인에 실패했다면 그에 대한 에러 핸들링을 구현
+        console.log(err.response.data);
+        setErrorMessage("로그인에 실패했습니다.");
+      });
+  };
+
+{% endhighlight %}
+
+{% highlight jsx linenos %}
+return (
+	// ...
+    <span>ID</span>
+    <input
+      type="text"
+      data-testid="id-input"
+      onChange={handleInputValue("userId")}
+    />
+    <span>Password</span>
+    <input
+      type="password"
+      data-testid="password-input"
+      onChange={handleInputValue("password")}
+    />
+	// ...
+ 
+  );
+}
+{% endhighlight %}
+
+{% highlight jsx linenos %}
+const handleInputValue = (key) => (e) => {
+  setLoginInfo({ ...loginInfo, [key]: e.target.value });
+};
+{% endhighlight %}
+
+<br>
+
+`[key]`는 Computed Property Names 문법이다. <br>
+이 문법은 객체 리터럴 안에서 대괄호로 묶인 표현식을 사용하여 동적으로 프로퍼티 이름을 생성할 수 있다.<br>
+<br>
+
+즉, 위 코드에서 `handleInputValue` 함수는 `key`라는 매개변수를 받아, <br>
+이를 객체 `loginInfo`의 프로퍼티 이름으로 사용한다.<br>
+<br>
+
+예를 들어, `handleInputValue("userId")`가 호출되면,<br>
+<br>
+ 
+`setLoginInfo({ ...loginInfo, ["userId"]: e.target.value })`와 같이 <br>
+`loginInfo` 객체의 `userId` 프로퍼티에 `e.target.value` 값을 할당한다.<br>
+<br>
+
+이렇게 함으로써, `handleInputValue` 함수는 `userId`나 `password`와 같이<br>
+다양한 프로퍼티 이름을 가진 객체를 다룰 수 있게 된다. 이는 보통 폼 입력값을 다룰 때 유용하게 사용된다.
+<br><br>
+
+## userInfo
+
+{% highlight jsx linenos %}
+module.exports = {
+  // 더미데이터 하나만 들어있는 상태.
+  USER_DATA: [
+    {
+      id: '0',
+      userId: 'hajongon',
+      password: '1234',
+      email: 'hajongon@gmail.com',
+      name: '하종승',
+      position: 'Frontend Developer',
+      location: 'Seoul, South Korea',
+      bio: '걱정할 시간에 그냥 해라.',
+    },
+  ],
+};
+{% endhighlight %}
+
+{% highlight jsx linenos %}
+// 두 개의 input에서 입력받은 userId, password와 일치하는 요소를 찾는다.
+const userInfo = {
+  ...USER_DATA.filter(
+    (user) => user.userId === userId && user.password === password
+  )[0],
+};
+{% endhighlight %}
+<br>
+
+로그인 화면에서 ID와 Password를 입력하고 로그인 버튼을 누르면, <br>
+엔드포인트 `localhost:4000/login`에서는 해당 ID, 비밀번호와 일치하는 data가 있는지 필터링한 뒤, <br>
+있으면 `userInfo`라는 변수에 할당한다. 일치하는 것이 없다면 빈 객체가 할당될 것이다.<br>
+<br>
+
+{% highlight jsx linenos %}
+const cookiesOption = {	// 필요한 옵션만 기재함
+  domain: "localhost",
+  path: "/",
+  httpOnly: true,
+  sameSite: "none",
+  secure: true,
+};
+{% endhighlight %}
+
+{% highlight jsx linenos %}
+if (userInfo.id === undefined) {
+  res.status(401).send("Not Authorized");
+} else if (checkedKeepLogin === true) {
+ 
+  // 로그인을 유지하고 싶은 경우, 
+  // cookiesOption에 max-age 또는 expires 옵션을 추가로 설정
+ 
+  // max-age 옵션으로 작성하는 경우
+  cookiesOption.maxAge = 1000 * 60 * 30;  // 단위는 ms(밀리세컨드 === 0.001초)
+  // 30분동안 쿠키를 유지한다.
+ 
+  // expires 옵션으로 작성하는 경우
+  // cookiesOption.expires = new Date(Date.now() + 1000 * 60 * 30);
+  // 지금 시간 + 30분 후에 쿠키를 삭제
+  
+  // res.cookie(name, value, option)
+  res.cookie("cookieId", userInfo.id, cookiesOption);
+  // 클라이언트에게 바로 응답하지 않고 서버의 /userinfo 엔드포인트로 리다이렉트
+  res.redirect("/userinfo");
+} else {
+  // 로그인을 유지하고 싶지 않은 경우, 
+  // max-age 또는 expires 옵션을 작성하지 않은 상태 그대로 쿠키를 설정
+  res.cookie("cookieId", userInfo.id, cookiesOption);
+  res.redirect("/userinfo")
+}
+{% endhighlight %}
+<br>
+
+## /userinfo 엔드포인트
+
+{% highlight jsx linenos %}
+module.exports = (req, res) => {
+  const cookieId = req.cookies.cookieId;
+  const userInfo = {
+    ...USER_DATA.filter((user) => user.id === cookieId)[0],
+  };
+  
+  /*
+   * 쿠키 검증 여부에 따라 유저 정보를 전달하는 로직을 구현.
+   *
+   * 로그인 시 설정한 쿠키가 존재하는 지 확인.
+   * 아직 로그인을 하지 않았다면, 쿠키가 존재하지 않을 수 있다.
+   */
+   
+  if (!cookieId || !userInfo.id) {
+    res.status(401).send("Not Authorized");
+  } else {
+    // 비밀번호는 민감한 정보이기 때문에 삭제 후 응답
+    delete userInfo.password;
+    res.send(userInfo);	// 이제 클라이언트에게 userInfo가 날아감
+  }
+};
+{% endhighlight %}
+
+{% highlight jsx linenos %}
+const loginRequestHandler = () => {
+// ...
+ 
+  return axios
+    .post("http://localhost:4000/login", { loginInfo, checkedKeepLogin })
+    .then((res) => {
+      setUserInfo(res.data);
+      setIsLogin(true);
+ 
+      //여기에서 에러 초기화
+      setErrorMessage("");
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+      setErrorMessage("로그인에 실패했습니다.");
+    });
+    
+// ...  
+};
+
+{% endhighlight %}
+
+<br>
+
+post 요청을 하고 받아온 `res`를 콘솔에 찍어보자.
+![response](/public/img/auth/response.png){: width="600px"}
+
+<br>
+
+우리는 `res.data`에서 필요한 정보를 뽑아쓰면 된다. 그럼 이제 `logout` 로직을 살펴보자.<br>
+<br>
+
+{% highlight jsx linenos %}
+export default function Mypage({ userInfo, setIsLogin, setUserInfo }) {
+  const logoutHandler = () => {
+    /*
+    Logout 버튼을 눌렀을 시 Login 페이지로 돌아갈 수 있도록 구현
+    return axios
+      .post(logout을 담당하는 endpoint)
+      .then((res) => {
+        로그아웃에 성공했다면 App의 상태를 변경
+      })
+      .catch((err) => {
+        로그아웃에 실패했다면 그에 대한 에러 핸들링을 구현
+      });
+    */
+    
+    return axios
+      .post("http://localhost:4001/logout")
+      .then((res) => {
+        setIsLogin(false);
+        setUserInfo(null);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
+{% endhighlight %}
+<br>
+
+`isLogin`에 의해 `MyPage` 컴포넌트가 보일지 `Login` 컴포넌트가 보일지 결정되기 때문에<br>
+logout 버튼을 누르면 `setIsLogin` 함수를 이용해 `isLogin`을 `false`로 바꿔준다. <br>
+`userInfo`는 초기화해준다.<br>
+<br>
+{% highlight jsx linenos %}
+module.exports = (req, res) => {
+  /*
+   * 로그아웃 로직을 구현
+   *
+   * cookie-parser의 clearCookie('쿠키의 키', cookieOption) 메서드로 해당 키를 가진 쿠키를 삭제할 수 있다.
+   * 만약 res.clearCookie('user', cookieOption) 코드가 실행된다면 `user=....` 쿠키가 삭제된다.
+   * 로그아웃 성공에 대한 상태 코드는 205가 되어야 한다.
+   */
+  const cookiesOption = {
+    domain: "localhost",
+    path: "/",
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+  };
+ 
+  res.status(205).clearCookie("cookieId", cookiesOption).send("logout");
+};
+{% endhighlight %}
+<br>
+
+`clearCookie` 메서드를 쓰기 위해 `cookiesOption`을 선언한다. <br>
+로그아웃 요청에 성공하면 205로 응답한다.<br>
+
+## 브라우저를 끄고 다시 접속했을 때도 로그인이 유지되도록 하기
+{% highlight jsx linenos %}
+function App() {
+  const [isLogin, setIsLogin] = useState(false);	// 디폴트는 Login 컴포넌트
+  const [userInfo, setUserInfo] = useState(null);
+ 
+  const authHandler = () => {
+    /*
+    초기 화면 렌더링시, 서버에 유저 정보를 요청하여 Login 또는 Mypage가 렌더링되도록 구현
+    
+    return axios
+      .get(유저의 정보를 담당하는 endpoint)
+      .then((res) => {
+        인증에 성공했다면 응답으로 받은 데이터가 Mypage에 렌더링되도록 State를 변경
+      })
+      .catch((err) => {
+        인증에 실패했다면 그에 대한 에러 핸들링을 구현
+      });
+    */
+      return axios
+      .get("http://localhost:4000/userinfo") // 있으면
+      .then((res) => {
+        setIsLogin(true)	// MyPage 컴포넌트
+        setUserInfo(res.data)
+      }) 
+      .catch((err) => {
+        console.log(err.response.data)
+      });
+  };
+ 
+  useEffect(() => {
+    // 컴포넌트 생성 시 아래 함수가 실행
+    authHandler();
+  }, []);
+  {% endhighlight %}
+
+<br>
+  

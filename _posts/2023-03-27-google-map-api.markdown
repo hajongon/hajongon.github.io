@@ -44,7 +44,8 @@ fetch 혹은 axios를 이용해 GET 요청을 한다. 이번 프로젝트에서�
 <br>
 <br>
 {% highlight typescript linenos %}
-  axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(입력 받을 주소)}&key=${MY API KEY}`)
+axios
+  .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(입력 받을 주소)}&key=${MY API KEY}`)
   .then(res => {
     console.log(res)
   })
@@ -74,13 +75,14 @@ fetch 혹은 axios를 이용해 GET 요청을 한다. 이번 프로젝트에서�
 우리에게는 좌표가 필요하다. `res.data.results[0].geometry.location`에 원하는 정보가 들어있다. 이걸 가져오면 된다.
 
 {% highlight typescript linenos %}
-axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(입력 받을 주소)}&key=${MY API KEY}`)
-.then(res => {
-const coordinates = res.data.results[0].geometry.location;
-})
-.catch(err => {
-console.log(err)
-})
+axios
+  .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(입력 받을 주소)}&key=${MY API KEY}`)
+  .then(res => {
+    const coordinates = res.data.results[0].geometry.location;
+  })
+  .catch(err => {
+    console.log(err)
+  })
 {% endhighlight %}
 
 <br>
@@ -92,23 +94,25 @@ console.log(err)
 {% highlight typescript linenos %}
 
 type GoogleGeocodingResponse = {
-results: { geometry: { location: { lat: number, lng: number } } }[];
-status: 'OK' | 'ZERO_RESULTS';
+  results: { geometry: { location: { lat: number, lng: number } } }[];
+  status: 'OK' | 'ZERO_RESULTS';
 }
 
 ...
 
-axios.get<GoogleGeocodingResponse>(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(입력 받을 주소)}&key=${MY API KEY}`)
-.then(res => {
-if (res.data.status !== 'OK') {
-throw new Error('에러');
-}
-const coordinates = res.data.results[0].geometry.location;
-})
-.catch(err => {
-alert(err.message);
-console.log(err)
-})
+axios
+  .get<GoogleGeocodingResponse>
+    (`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(입력 받을 주소)}&key=${MY API KEY}`)
+  .then(res => {
+    if (res.data.status !== 'OK') {
+      throw new Error('에러');
+    }
+    const coordinates = res.data.results[0].geometry.location;
+  })
+  .catch(err => {
+    alert(err.message);
+    console.log(err)
+  })
 
 {% endhighlight %}
 <br>
@@ -145,27 +149,29 @@ console.log(err)
 {% highlight typescript linenos %}
 
 type GoogleGeocodingResponse = {
-results: { geometry: { location: { lat: number, lng: number } } }[];
-status: 'OK' | 'ZERO_RESULTS';
+  results: { geometry: { location: { lat: number, lng: number } } }[];
+  status: 'OK' | 'ZERO_RESULTS';
 }
 
 ...
 
-axios.get<GoogleGeocodingResponse>(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(입력 받을 주소)}&key=${MY API KEY}`)
-.then(res => {
-if (res.data.status !== 'OK') {
-throw new Error('에러');
-}
-const coordinates = res.data.results[0].geometry.location;
-const map = new google.maps.Map(document.getElementById("map"), {
-center: coordinates,
-zoom: 8
-})
-})
-.catch(err => {
-alert(err.message);
-console.log(err)
-})
+axios
+  .get<GoogleGeocodingResponse>
+    (`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(입력 받을 주소)}&key=${MY API KEY}`)
+  .then(res => {
+    if (res.data.status !== 'OK') {
+      throw new Error('에러');
+    }
+    const coordinates = res.data.results[0].geometry.location;
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: coordinates,
+      zoom: 8
+    })
+  })
+  .catch(err => {
+    alert(err.message);
+    console.log(err)
+  })
 
 {% endhighlight %}
 
@@ -182,30 +188,31 @@ declare var google: any;
 {% highlight typescript linenos %}
 
 type GoogleGeocodingResponse = {
-results: { geometry: { location: { lat: number, lng: number } } }[];
-status: 'OK' | 'ZERO_RESULTS';
+  results: { geometry: { location: { lat: number, lng: number } } }[];
+  status: 'OK' | 'ZERO_RESULTS';
 }
 
 ...
 
-axios.get<GoogleGeocodingResponse>(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(입력 받을 주소)}&key=${MY API KEY}`)
-.then(res => {
-if (res.data.status !== 'OK') {
-throw new Error('에러');
-}
-const coordinates = res.data.results[0].geometry.location;
-const map = new google.maps.Map(document.getElementById("map"), {
-center: coordinates,
-zoom: 12
-});
+axios
+  .get<GoogleGeocodingResponse>
+    (`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(입력 받을 주소)}&key=${MY API KEY}`)
+  .then(res => {
+    if (res.data.status !== 'OK') {
+      throw new Error('에러');
+    }
+    const coordinates = res.data.results[0].geometry.location;
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: coordinates,
+      zoom: 12
+    });
 
     new google.maps.Marker({position: coordinates, map: map});
-
-})
-.catch(err => {
-alert(err.message);
-console.log(err)
-})
+  })
+  .catch(err => {
+    alert(err.message);
+    console.log(err)
+  })
 
 {% endhighlight %}
 
@@ -216,9 +223,9 @@ console.log(err)
 
 # Google Maps 타입 지원
 ---
-잘 동작한다. 하지만 최적화를 좀 해줘야 한다. 현재는 타입 지원을 못 받고 있다.
+잘 동작한다. 하지만 현재는 타입 지원을 못 받고 있다.
 <br>
-google.maps 대신에 google.map을 사용해도 타입스크립트는 문제가 생기는지 알지 못한다.
+`google.maps` 대신에 `google.mapmapmap`을 사용하려 해도 타입스크립트는 그것이 문제인지 알지 못한다.
 <br>
 어떻게 하면 될까? 어떻게 타입스크립트가 구글맵을 알게끔 할 수 있을까?
 <br>
@@ -281,34 +288,34 @@ const addressInput = document.getElementById("address")! as HTMLInputElement;
 const GOOGLE_API_KEY = "MY API KEY";
 
 declare global {
-interface Window {
-initMap: () => void;
-}
+  interface Window {
+  initMap: () => void;
+  }
 }
 
 type GoogleGeocodingResponse = {
-results: { geometry: { location: { lat: number; lng: number } } }[];
-status: "OK" | "ZERO_RESULTS";
+  results: { geometry: { location: { lat: number; lng: number } } }[];
+  status: "OK" | "ZERO_RESULTS";
 };
 
 function searchAddressHandler(event: Event) {
-event.preventDefault();
-const enteredAddress = addressInput.value;
-axios
-.get<GoogleGeocodingResponse>(
-`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(
+  event.preventDefault();
+  const enteredAddress = addressInput.value;
+  axios
+    .get<GoogleGeocodingResponse>(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURI(
         enteredAddress
       )}&key=${GOOGLE_API_KEY}`
-)
-.then((res) => {
-if (res.data.status !== "OK") {
-throw new Error("에러");
-}
-const coordinates = res.data.results[0].geometry.location;
-const map = new google.maps.Map(document.getElementById("map")!, {
-center: coordinates,
-zoom: 12,
-});
+    )
+    .then((res) => {
+      if (res.data.status !== "OK") {
+        throw new Error("에러");
+      }
+      const coordinates = res.data.results[0].geometry.location;
+      const map = new google.maps.Map(document.getElementById("map")!, {
+        center: coordinates,
+        zoom: 12,
+      });
 
       new google.maps.Marker({ position: coordinates, map: map });
     })

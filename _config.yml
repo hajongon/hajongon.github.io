@@ -30,7 +30,10 @@ svg:
   optimize: true
 # Build settings
 # theme: minima
-highlighter-theme: monokai
+
+# theme를 변경하려면 public의 style.css 에서 원하는 파일 임포트 해야 함.
+# ex. @import url(syntax/pastie.css);
+highlighter-theme: pastie
 date_format: "%Y-%M-%D"
 
 category_dir: category/
@@ -53,7 +56,7 @@ future: true
 #   syntax_highlighter: rouge
 
 
-
+search_enabled: true
 plugins:
   - jekyll-feed
   # - jekyll-toc # 추가된 부분

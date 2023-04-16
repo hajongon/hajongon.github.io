@@ -7,7 +7,8 @@
 
 @import url(//fonts.googleapis.com/css?family=Ubuntu:500&subset=latin,latin-ext);
 @import url("https://fonts.googleapis.com/css?family=Gelasio|Kulim+Park|Nanum+Myeongjo|Nanum+Gothic|Noto+Sans|Noto+Sans+KR|Roboto&display=swap");
-@import url(syntax/monokai.css);
+/* @import url(syntax/monokai.css); */
+@import url(syntax/pastie.css);
 
 :root {
   --blue: #007bff;
@@ -108,6 +109,7 @@ code {
   width: 80%;
   flex: 1 1 auto;
   display: flex;
+  flex-direction: column;
 }
 
 .sidebar {
@@ -517,12 +519,12 @@ img {
   margin-inline-end: 40px;
 }
 /* 임베디드 스타일 */
-iframe {
+/* iframe {
   margin-block-start: 1em;
   margin-block-end: 1em;
   margin-inline-start: 40px;
   margin-inline-end: 40px;
-}
+} */
 
 /* 목록 스타일링 */
 
@@ -553,3 +555,10 @@ ol > li {
   content: "-";
   margin-right: 0.5rem;
 } */
+
+
+/* 댓글 */
+
+.utterances {
+  margin-left: 39px;
+}
