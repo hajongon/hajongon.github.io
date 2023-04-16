@@ -4,7 +4,7 @@ title: Cookie를 사용한 로그인 기능
 date: 2023-04-15 00:00:00 +0900
 category: Auth
 published: true
-comments: true
+
 ---
 
 # Cookie란?

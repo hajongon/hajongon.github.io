@@ -55,8 +55,8 @@ future: true
 #   toc_levels: 1..6
 #   syntax_highlighter: rouge
 
+#  검색 기능
 
-search_enabled: true
 plugins:
   - jekyll-feed
   # - jekyll-toc # 추가된 부분

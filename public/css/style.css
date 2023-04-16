@@ -560,5 +560,8 @@ ol > li {
 /* 댓글 */
 
 .utterances {
-  margin-left: 39px;
+  margin-left: 100px;
+  margin-bottom: 100px;
+  max-width: 810px;
 }
+
