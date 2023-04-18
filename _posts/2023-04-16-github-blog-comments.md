@@ -85,6 +85,11 @@ Github에 새로운 레포지토리를 생성한다.<br>
 <br>
 끝입니다.
 <br>
+<br>
+
+## Utterances 아쉬운 점
+
+- 댓글 수정, 삭제를 `blog-comments` 레포지토리에서만 할 수 있다.
 
 # References
 
