@@ -2,7 +2,7 @@
 layout: post
 title: stack overflow 클론 코딩 프로젝트 03. '리액트 - ngrok' CRUD 구현
 date: 2023-04-18 00:00:00 +0900
-category: Project
+category: clone
 published: true
 ---
 

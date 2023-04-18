@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 맥북 캡처 안 되는 오류 해결 (Touch En Exkey)
-date: 2023-04-18 00:00:00 +0900
-category: Error
+date: 2023-04-18 03:00:00 +0900
+category: error
 published: true
 ---
 
