@@ -257,31 +257,61 @@ article {
   overflow: hidden;
 }
 
+/* toc */
+
 #toc {
   margin-top: 5%;
   /* margin-right: 0%; */
-  margin-left: 2%;
-  width: fit-content;
+  margin-left: 5%;
+  width: 20%;
   max-width: 20%;
 
   overflow-y: auto;
   font-size: 0.8rem;
-  padding: 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.2rem;
+  
   background-color: #f8f8f8;
   border: 1px solid #ddd;
   height: max-content;
   position: sticky;
   top: 200px;
+  border-radius: 5px;
 }
 
 #toc ol {
   margin-left: 0;
   padding-left: 1em;
 }
+
+#toc li {
+  list-style: none;
+}
+
 #toc .node-name--H1 {
   /* background-color: rgb(255, 255, 126); */
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: bolder;
+  border-bottom: 1px solid rgb(160, 160, 160);
+  color: rgb(85, 85, 85);
+}
+
+#toc .node-name--H1::before {
+  content: '🌱 ';
+}
+
+#toc .node-name--H2 {
+  /* background-color: rgb(255, 255, 126); */
+  color: rgb(111, 111, 111);
+}
+
+#toc .node-name--H2::before {
+  content: '- ';
+}
+
+#toc .node-name--H3 {
+  /* background-color: rgb(255, 255, 126); */
+  color: rgb(134, 134, 134);
+  font-size: 0.7rem;
 }
 
 #toc a {
@@ -464,6 +494,11 @@ figure.highlight {
   border: 1px solid lightgray;
 }
 
+/* 코드블럭 폰트 */
+pre {
+  font-size: 0.9rem;
+}
+
 /* 인라인 코드 스타일 */
 code.highlighter-rouge {
   font-size: 1rem;
@@ -486,7 +521,7 @@ div.highlighter-rouge {
 }
 
 div.highlighter-rouge > div > pre > code {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 /* .highlighter-rouge > .highlight {
@@ -519,12 +554,12 @@ img {
   margin-inline-end: 40px;
 }
 /* 임베디드 스타일 */
-/* iframe {
+iframe {
   margin-block-start: 1em;
   margin-block-end: 1em;
   margin-inline-start: 40px;
   margin-inline-end: 40px;
-} */
+}
 
 /* 목록 스타일링 */
 
@@ -532,24 +567,33 @@ img {
   list-style-type: none;
 } */
 
-ul > li {
+.post-content li {
   list-style-type: none;
 }
 
-ul > li::before {
+.post-content li::before {
   content: "-";
   margin-right: 1rem;
   margin-left: -2rem;
-}
+} */
 
 /* toc */
+
+
+
+#toc li {
+  list-style: none;
+}
+
+
+
 /* ol {
   list-style-type: inherit;
 } */
 
-ol > li {
+/* ol > li { */
   /* list-style-type: none; */
-}
+/* } */
 
 /* ol > li::before {
   content: "-";
@@ -560,7 +604,7 @@ ol > li {
 /* 댓글 */
 
 .utterances {
-  margin-left: 100px;
+  margin-left: 0px;
   margin-bottom: 100px;
   max-width: 810px;
 }
