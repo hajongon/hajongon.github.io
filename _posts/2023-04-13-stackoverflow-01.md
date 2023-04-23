@@ -1,6 +1,6 @@
 ---
 layout: post
-title: stack overflow 클론 코딩 프로젝트 01.
+title: stack overflow 클론 코딩 프로젝트 01. 시작
 date: 2023-04-13 00:00:00 +0900
 category: clone
 published: true

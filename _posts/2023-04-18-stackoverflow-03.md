@@ -1,6 +1,6 @@
 ---
 layout: post
-title: stack overflow 클론 코딩 프로젝트 03. '리액트 - ngrok' CRUD 구현
+title: stack overflow 클론 코딩 프로젝트 03. CRUD (1)
 date: 2023-04-18 00:00:00 +0900
 category: clone
 published: true
@@ -416,6 +416,116 @@ function AskQuestion() {
 
 처음에는 `id`와 `questionId` 차이를 몰라서 제대로 된 요청이 되지 않았음.
 `id`로 통일하고 해결.
+<br>
+<br>
+
+### useInput 훅
+
+{% highlight jsx linenos %}
+import { useCallback, useState } from 'react';
+
+const useInput = () => {
+  const [curValue, setCurValue] = useState('');
+
+  const bind = {
+    curValue,
+    onChange: useCallback(e => {
+      const { value } = e.target;
+      setCurValue(value);
+    }, []),
+  };
+
+  return bind;
+};
+
+export default useInput;
+
+{% endhighlight %}
+<br>
+
+#### 🍟 동작 원리<br>
+
+`curValue`는 현재 입력받고 있는 데이터를 의미한다.<br>
+`bind`라는 객체를 만들어서 그 안에 `curValue`와 `onChange` 함수를 저장한다.<br>
+`bind` 객체를 리턴한다.
+
+
+<br>
+<br>
+
+
+### Input, MarkDown 컴포넌트
+
+
+
+{% highlight jsx linenos %}
+
+import { useRef } from 'react';
+import { Editor } from '@toast-ui/react-editor';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight-all';
+
+// 이걸 불러오기만 해도 하이라이팅이 됨
+import 'prismjs/themes/prism.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+
+function MarkDown({ editorRef }) {
+  return (
+    <Editor
+      ref={editorRef}
+      plugins={[codeSyntaxHighlight]}
+      placeholder="내용을 입력해주세요."
+      initialValue=" "
+      previewStyle="tab" // 미리보기 스타일 지정
+      height="300px" // 에디터 창 높이
+      toolbarItems={[
+        // 툴바 옵션 설정
+        ['heading', 'bold', 'italic', 'strike'],
+        ['hr', 'quote'],
+        ['ul', 'ol', 'task', 'indent', 'outdent'],
+        ['table', 'image', 'link'],
+        ['code', 'codeblock'],
+      ]}
+    />
+  );
+}
+
+function Input({ value }) {
+  return <input type="text" value={value.curValue} onChange={value.onChange} />;
+}
+
+function TextArea({ value }) {
+  return <textarea type="text" value={value.curValue} onChange={value.onChange} />;
+}
+
+export { MarkDown, Input, TextArea };
+{% endhighlight%}
+<br>
+
+#### 🍟 동작 원리<br>
+
+`AskQuestion`에서 `useRef`로 가리킨 `editorBodyRef`, `editorDetailsRef` 포인터를 prop으로 전송받아<br>
+마크다운 에디터의 `ref`에 할당한다. 코드블록 하이라이팅은 `prismjs`를 설치해서 구현했다.<br>
+<br>
+
+`Input` 컴포넌트는 `AskQuestion`에서 `titleBind`와 `titleBind.onChange`를 prop으로 전송받아<br>
+인풋 창의 value와 onChange에 할당한다.<br>
+
+
+<br>
+
+
+#### 🍟 이슈<br>
+
+처음에는 `react-markdown`을 사용해보려 했는데,<br>
+코드 블록 내부 내용이 자꾸 `undefined`로 출력되는 현상이 있었고 결국 해결하지 못했다.<br>
+차선책으로 NHN의 오픈소스인 toast UI를 활용해 입력을 HTML로 받아 화면에 렌더링시키는 방법으로 로직을 구현했다.<br>
+<br>
+
+`initialValue` 속성에 공백을 주지 않으면 에디터 내부의 값들이 initial Value로 지정되는 문제가 있다.<br>
+이 부분은 아직 해결하지 못했다.
+
+<br>
+
 
 <br>
 
@@ -425,3 +535,4 @@ function AskQuestion() {
 - `question` PATCH 요청
 - `question`과 `answers` 데이터 구조 확립
 - `useAxios` 리팩토링
+- `initialValue` 공백 이슈 해결

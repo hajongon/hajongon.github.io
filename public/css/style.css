@@ -314,6 +314,12 @@ article {
   font-size: 0.7rem;
 }
 
+#toc .node-name--H4 {
+  /* background-color: rgb(255, 255, 126); */
+  color: rgb(134, 134, 134);
+  font-size: 0.7rem;
+}
+
 #toc a {
   color: black;
 }
