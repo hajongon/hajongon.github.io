@@ -61,9 +61,7 @@ function AskQuestion() {
 {% endhighlight %}
 
 <br>
-<br>
 
-#### 🍟 issues
 
 
 <br>
@@ -131,7 +129,8 @@ if (pageInfosData) {
 
 
 #### 🍟 issues<br>
-  - `Question` 객체 안에 `answers` 배열이 들어있기 때문에, 새로운 답변을 등록할 때 Question을 PATCH하는 요청을 보냈다. 하지만 백엔드 쪽 로직은 'answer' 요소 하나를 POST 하는 식으로 짜여 있었기 때문에 해당 코드를 수정했다.
+  - `Question` 객체 안에 `answers` 배열이 들어있기 때문에, 새로운 답변을 등록할 때 Question을 PATCH하는 요청을 보냈다. <br> 
+  하지만 백엔드 쪽 로직은 'answer' 요소 하나를 POST 하는 식으로 짜여 있었기 때문에 해당 코드를 수정했다.
   - 컴포넌트가 렌더링된 후에 data를 불러오는 문제가 발생해서 한참 애를 먹었다.
     - 해결: `Question` 컴포넌트 내에서 `answersData` state를 만들어서 갱신시켜준다.
 
@@ -291,7 +290,7 @@ useEffect(() => {
     - 이건 사실 왜 그랬는지 모르겠다. 이스케이프(escape) 때문인 것 같긴 한데, 정확한 원리를 이해하지 못했다.
     - 아래에 나오는 무한 입력을 해결하니 자연스럽게 함께 해결되었다.
   - 백틱 입력 시 `onChange` 속성과 `setContent` 메서드가 반복되면서 백슬래시가 무한 입력되는 현상
-    - 기존에는 `initialValue` 값으로 `content`를 사용했는데, 그렇게 되면 `onChange`에 의해 `content`가 바뀌고, `content`가 바뀌면 `initialValue`가 바뀌고 그러면 또 `onChange`가 실행되고 무한 무한 무한 한무 반복이 되는 문제가 발생한다.
+    - 기존에는 `initialValue` 값으로 `content`를 사용했는데, 그렇게 되면 `onChange`에 의해 `content`가 바뀌고, <br>`content`가 바뀌면 `initialValue`가 바뀌고 그러면 또 `onChange`가 실행되고 무한 무한 무한 한무 반복이 되는 문제가 발생한다.
     - `esLint`의 dependency array 규칙을 해당 훅에 대해서만 끄고 내부에 있던 content를 제거했다.
     - `initialValue`를 빈 문자열로 할당하고, `setHTML` 메서드를 이용해 처음 한 번만 body값을 에디터에 집어넣어준다.
   
