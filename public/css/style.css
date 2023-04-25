@@ -615,3 +615,18 @@ iframe {
   max-width: 810px;
 }
 
+
+/* 이미지 캡션 만들기 */
+figure > img {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+figure > figcaption {
+  text-align: center;
+  color: rgb(141, 141, 141);
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
