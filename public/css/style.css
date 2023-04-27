@@ -615,6 +615,11 @@ iframe {
   max-width: 810px;
 }
 
+/* figure */
+
+figure {
+  width: 800px;
+}
 
 /* 이미지 캡션 만들기 */
 figure > img {

@@ -9,21 +9,21 @@ published: true
 ## 프로젝트 진행 현황
 
 ### 답변 수정
-<figure width="600px">
+<figure>
   <img src="/public/img/project/stackoverflow/example-answer.png" alt="example-answer" width="100%">
   <figcaption>답변 예시</figcaption>
 </figure>
 
 <br>
 
-<figure width="600px">
+<figure>
   <img src="/public/img/project/stackoverflow/answer-editing-mode.png" alt="answer-editing-mode" width="100%">
   <figcaption>답변 editor에는, 등록되어 있던 답변의 내용이 담겨있게 된다.</figcaption>
 </figure>
 
 <br>
 
-<figure width="600px">
+<figure>
   <img src="/public/img/project/stackoverflow/answer-edited.png" alt="answer-edited" width="100%">
   <figcaption>답변 수정 완료</figcaption>
 </figure>
@@ -32,7 +32,7 @@ published: true
 
 #### 🍟 컴포넌트 구성
 
-<figure width="600px">
+<figure>
   <img src="/public/img/project/stackoverflow/answer-code.png" alt="answer-code" width="100%">
   <figcaption>code</figcaption>
 </figure>
@@ -90,14 +90,14 @@ const handleEditAnswer = answer => {
 
 ### 코멘트 GET, POST
 
-<figure width="600px">
+<figure>
   <img src="/public/img/project/stackoverflow/comment-add-button.png" alt="comment-add-button" width="100%">
   <figcaption>코멘트 등록 버튼</figcaption>
 </figure>
 
 <br>
 
-<figure width="600px">
+<figure>
   <img src="/public/img/project/stackoverflow/comment-add-mode.png" alt="comment-add-mode" width="100%">
   <figcaption>코멘트 등록 중인 화면</figcaption>
 </figure>
@@ -105,7 +105,7 @@ const handleEditAnswer = answer => {
 <br>
 
 
-<figure width="600px">
+<figure>
   <img src="/public/img/project/stackoverflow/comment-added.png" alt="comment-added" width="100%">
   <figcaption>코멘트 등록 중인 화면</figcaption>
 </figure>
@@ -114,7 +114,7 @@ const handleEditAnswer = answer => {
 
 #### 🍟 컴포넌트 구성
 
-<figure width="600px">
+<figure>
   <img src="/public/img/project/stackoverflow/comment-code.png" alt="comment-code" width="100%">
   <figcaption>code</figcaption>
 </figure>
@@ -143,7 +143,7 @@ const handleAddComment = answerId => {
 };
 {% endhighlight %}
 
-### 코멘트 삭제
+### 코멘트 DELETE
 
 #### 🍟 details
 
