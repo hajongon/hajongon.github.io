@@ -373,3 +373,7 @@ function PostWriter({ question }) {
 
 일은 사람이 하는 거라고들 하죠. 저는 앞으로도 잘하는 사람보다는 좋은 사람이 되기 위해 노력하겠습니다.<br>
 감사했습니다 팀원 여러분!<br>
+
+<br>
+
+![마지막-cors-에러](/public/img/project/stackoverflow/the-last-cors-error.png){: width="800px"}
