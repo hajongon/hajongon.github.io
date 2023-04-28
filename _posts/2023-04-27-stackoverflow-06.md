@@ -376,4 +376,15 @@ function PostWriter({ question }) {
 
 <br>
 
+- 마지막 cors 에러...
+
 ![마지막-cors-에러](/public/img/project/stackoverflow/the-last-cors-error.png){: width="800px"}
+
+<br>
+
+- 내가 만든 질문 작성 페이지
+
+![질문-작성-페이지](/public/img/project/stackoverflow/question-ask-page.png)
+
+<br>
+
