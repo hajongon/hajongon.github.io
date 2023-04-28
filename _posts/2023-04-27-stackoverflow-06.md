@@ -384,7 +384,7 @@ function PostWriter({ question }) {
 
 - 내가 만든 질문 작성 페이지
 
-![질문-작성-페이지](/public/img/project/stackoverflow/question-ask-page.png)
+![질문-작성-페이지](/public/img/project/stackoverflow/question-ask-page.png){: width="800px"}
 
 <br>
 
