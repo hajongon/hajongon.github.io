@@ -1,6 +1,6 @@
 ---
 layout: post
-title: stack overflow 클론 코딩 프로젝트 05. CRUD (4)
+title: stack overflow 클론 코딩 프로젝트 06. CRUD (4)
 date: 2023-04-27 00:00:00 +0900
 category: clone
 published: true
