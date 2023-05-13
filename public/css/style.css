@@ -91,6 +91,15 @@ pre {
   line-height: 1.5;
 }
 
+/* 넘버링 스타일 */
+pre .lineno {
+  color:rgb(186, 186, 186);
+}
+
+pre table {
+  width: fit-content;
+}
+
 code {
   font-family: "Menlo", "Consolas", monospace;
   font-size: 0.9em;
@@ -180,9 +189,6 @@ a.nav-item:hover {
 }
 .badge::after {
   content: ")";
-}
-
-.post-list > li {
 }
 
 .post-link {
@@ -547,7 +553,7 @@ hr {
 }
 
 pre ::selection {
-  background-color: rgb(65, 65, 65);
+  background-color: #dfdad1;
 }
 
 /* 이미지 */
@@ -621,6 +627,13 @@ figure {
   width: 800px;
 }
 
+/* 코드블럭 */
+figure > pre {
+  margin: 0;
+}
+
+
+
 /* 이미지 캡션 만들기 */
 figure > img {
   margin-block-start: 0em;
@@ -634,4 +647,53 @@ figure > figcaption {
   color: rgb(141, 141, 141);
   margin-top: 10px;
   font-size: 0.9rem;
+}
+
+
+/* table */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  border-spacing: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  border: 1px solid rgb(219, 219, 219);
+}
+
+thead {
+  border: 1px solid rgb(219, 219, 219);
+}
+
+th {
+  padding: 10px;
+  border: 1px solid rgb(237, 237, 237);
+  text-align: start;
+}
+
+td {
+  padding: 10px;
+  border: 1px solid rgb(237, 237, 237);
+}
+
+/* 코드에도 테이블 속성이 적용되어서 부득이하게 ㅠ */
+code table {
+  border: none;
+  margin-bottom: 0;
+}
+
+code thead {
+  border: none;
+}
+
+code th {
+  border: none;
+  padding: 0px;
+}
+
+code td {
+  border: none;
 }
