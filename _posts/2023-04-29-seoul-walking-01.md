@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 우리가 걷기 앱을 만든다면
+title: 우리가 산책 앱을 만든다면
 date: 2023-04-29 00:00:00 +0900
 category: team-project
 published: true

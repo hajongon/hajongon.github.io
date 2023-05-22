@@ -241,9 +241,9 @@ article .share .gplus:hover {
 }
 
 article {
-  width: 100%;
-  padding: 0 5% 0;
-  font-size: 17px;
+  width: 1290px;
+  padding: 0 65px 0;
+  font-size: 16px;
   margin-bottom: 100px;
   line-height: 1.9;
 }
@@ -455,14 +455,32 @@ footer {
     display: none;
   }
 
+  .post-content {
+    width: 100%;
+  }
+
+  article code.highlighter-rouge {
+    font-size: 0.9em;
+  }
+
+  article img {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+  }
+
   article {
-    font-size: 1em;
+    width: 100%;
+    padding: 0 5% 0;
+    font-size: 0.8em;
     line-height: 1.5;
   }
 
   .content {
     padding: 0px;
     width: 100%;
+    font-size: 1rem;
   }
   .container {
     flex-direction: column;
@@ -493,7 +511,16 @@ footer {
     display: none;
   }
 
-  pre {
+  figure {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    width: 400px;
+  }
+
+  figure > pre {
+    width: 100%;
     font-size: 0.8rem;
   }
 }
@@ -513,14 +540,14 @@ pre {
 
 /* 인라인 코드 스타일 */
 code.highlighter-rouge {
-  font-size: 1rem;
+  font-size: 14px;
   margin-left: 0.1rem;
   margin-right: 0.1rem;
   padding: 0.2rem 0.4rem 0.2rem 0.4rem;
 
   background-color: #eeeeec;
   color: #eb5757;
-  border-radius: 10%;
+  border-radius: 5px;
 }
 
 /* 인용구 스타일 */
