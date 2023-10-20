@@ -136,6 +136,10 @@ code {
   display: block;
 }
 
+.sidebar-item .nav-item {
+  font-size: 16px;
+}
+
 .sidebar ul {
   list-style-type: none;
   padding-inline-start: 0px;
@@ -241,8 +245,7 @@ article .share .gplus:hover {
 }
 
 article {
-  width: 1290px;
-  padding: 0 65px 0;
+  padding: 0 42px 0;
   font-size: 16px;
   margin-bottom: 100px;
   line-height: 1.9;
@@ -535,6 +538,7 @@ figure.highlight {
 
 /* 코드블럭 폰트 */
 pre {
+  font-family:'Courier New', Courier, monospace;
   font-size: 0.9rem;
 }
 
@@ -723,4 +727,27 @@ code th {
 
 code td {
   border: none;
+}
+
+/* 사이드바 감추기 */
+
+.sidebar-small {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: black;
+  padding: 24px 12px 0 12px;
+}
+
+.lineBtnBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lineBtn {
+  width: 28px;
+  border-top: 3px solid white;
+  border-radius: 3px;
 }

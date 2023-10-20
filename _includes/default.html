@@ -1,19 +1,58 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: `en` }}">
+<head>
   {%- include head.html -%}
-  <style>@import url(/public/css/syntax/{{ site.highlighter-theme }}.css);</style>
-  <title>{{ site.title }}</title>
-  <!-- <link href="/public/css/bootstrap.min.css" rel="stylesheet"> -->
+  <style>
+    @import url(/public/css/syntax/{{ site.highlighter-theme }}.css);
 
+    /* 추가된 CSS 클래스 */
+    .sidebar-active {
+      display: block !important; /* 우선순위를 높이기 위해 !important 사용 */
+    }
+  </style>
+  <title>{{ site.title }}</title>
   <link href="/public/css/style.css" rel="stylesheet">
-  <body>
-  	<div class="container"> 
-		<div class="sidebar">
-			{% include sidebar.html %}
-		</div>
-		<div class="content">
-			{{ content }}
-		</div>
-	</div>
-  </body>
+</head>
+<body>
+  <div class="container"> 
+    <div class="sidebar" style="display: none;">
+      {% include sidebar.html %}
+    </div>
+    <div class="sidebar-small">
+      <div class="lineBtnBox" id="lineBtnBox">
+        <div class="lineBtn"></div>
+        <div class="lineBtn"></div>
+        <div class="lineBtn"></div>
+      </div>
+    </div>
+    <div class="content">
+      {{ content }}
+    </div>
+  </div>
+
+  <script>
+    // lineBtnBox 요소를 가져옵니다.
+    const lineBtnBox = document.getElementById('lineBtnBox');
+    // sidebar-small 요소를 가져옵니다.
+    const sidebarSmall = document.querySelector('.sidebar-small');
+    // sidebar 요소를 가져옵니다.
+    const sidebar = document.querySelector('.sidebar');
+
+    // lineBtnBox에 호버되었을 때 이벤트 핸들러를 실행합니다.
+    lineBtnBox.addEventListener('mouseenter', () => {
+      // sidebar-small을 숨깁니다.
+      sidebarSmall.style.display = 'none';
+      // sidebar를 표시합니다.
+      sidebar.classList.add('sidebar-active');
+    });
+
+    // sidebar에서 마우스가 벗어났을 때 이벤트 핸들러를 실행합니다.
+    sidebar.addEventListener('mouseleave', () => {
+      // sidebar를 숨깁니다.
+      sidebar.classList.remove('sidebar-active');
+      // sidebar-small을 표시합니다.
+      sidebarSmall.style.display = 'block';
+    });
+  </script>
+</body>
 </html>
