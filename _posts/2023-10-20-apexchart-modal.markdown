@@ -10,7 +10,7 @@ published: true
 
 차트 내부 bar 클릭 시 모달 창이 열리고, bar에 해당하는 데이터만 테이블에 매핑되어 출력되도록 구현했다.
 
-[bar에 해당하는 데이터 불러오기](https://hajongon.github.io/apexchart/2023/10/19/apexchart.html)
+[bar에 해당하는 데이터 불러오기](https://hajongon.github.io/apexchart/2023/10/18/apexchart.html)
 
 
 {% highlight javascript linenos %}
