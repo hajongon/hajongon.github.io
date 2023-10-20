@@ -41,7 +41,8 @@
     // lineBtnBox에 호버되었을 때 이벤트 핸들러를 실행합니다.
     lineBtnBox.addEventListener('mouseenter', () => {
       // sidebar-small을 숨깁니다.
-      sidebarSmall.style.display = 'none';
+      // sidebarSmall.style.display = 'none';
+	  lineBtnBox.style.opacity = '0';
       // sidebar를 표시합니다.
       sidebar.classList.add('sidebar-active');
     });
@@ -52,6 +53,7 @@
       sidebar.classList.remove('sidebar-active');
       // sidebar-small을 표시합니다.
       sidebarSmall.style.display = 'block';
+	  lineBtnBox.style.opacity = '1';
     });
   </script>
 </body>

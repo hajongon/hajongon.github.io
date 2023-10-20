@@ -119,17 +119,31 @@ code {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+  background-color: rgb(247, 247, 247);
 }
 
 .sidebar {
-  /*position: fixed;*/
+  max-width: 240px;
+  position: fixed;
   display: flex;
   flex-flow: column nowrap;
   flex: 0 0 220px;
   padding: 15px;
-  z-index: 1;
+  z-index: 1000;
   background-color: #222;
   color: #fff;
+  overflow-y: auto; /* 세로 스크롤바를 활성화합니다. */
+  max-height: 100vh; /* 최대 높이를 화면 높이와 같게 설정합니다. */
+}
+
+/* 스크롤 바 숨기기 */
+.sidebar::-webkit-scrollbar {
+  width: 0.1em; /* 세로 스크롤바의 너비를 0으로 설정하여 숨깁니다. */
+}
+
+/* 커스텀 스크롤바 스타일 */
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: transparent; /* 스크롤바 썸의 배경색을 투명하게 설정하여 숨깁니다. */
 }
 
 .sidebar-item {
@@ -606,19 +620,22 @@ iframe {
 
 /* 목록 스타일링 */
 
-/* li {
+li {
   list-style-type: none;
-} */
+}
 
 .post-content li {
   list-style-type: none;
 }
 
+/*
 .post-content li::before {
   content: "-";
   margin-right: 1rem;
   margin-left: -2rem;
-} */
+} 
+
+*/
 
 /* toc */
 
@@ -732,15 +749,23 @@ code td {
 /* 사이드바 감추기 */
 
 .sidebar-small {
+  width: 62px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   background-color: black;
   padding: 24px 12px 0 12px;
+  opacity: 1; /* 초기 opacity를 1로 설정합니다. */
+  transition: opacity 0.3s ease;
 }
 
 .lineBtnBox {
+  position: fixed;
+  top: 30px;
+  left: 30px; /* 가운데 정렬을 위해 화면 가로 중앙으로 이동 */
+  transform: translateX(-50%); /* 가운데 정렬 */
+  z-index: 1000; 
   display: flex;
   flex-direction: column;
   gap: 6px;
