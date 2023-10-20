@@ -51,7 +51,7 @@
 .highlight .sc { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Char */
 .highlight .dl { color: #858585; } /* Literal.String.Delimiter */
 .highlight .sd { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Doc */
-.highlight .s2 { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Double */
+.highlight .s2 { color: #858585; } /* Literal.String.Double */
 .highlight .se { color: #0044dd; background-color: #fff0f0 } /* Literal.String.Escape */
 .highlight .sh { color: #dd2200; background-color: #fff0f0 } /* Literal.String.Heredoc */
 .highlight .si { color: #3333bb; background-color: #fff0f0 } /* Literal.String.Interpol */
