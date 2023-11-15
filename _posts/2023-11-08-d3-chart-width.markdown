@@ -162,10 +162,10 @@ export default function Treemap({ data, width, height }) {
                         <div>해당 환자의 처방 이력이 없습니다.</div>
                     ) : (
                         <>
-                            <svg ref={svgRef} style={{ flex: '1' }} />
+                            <svg ref={svgRef} style={ { flex: '1' } } />
                             <svg
                                 ref={legendRef}
-                                style={{ marginTop: '10px ' }}
+                                style={ { marginTop: '10px ' } }
                             />
                         </>
                     )}
@@ -485,7 +485,7 @@ export default function Treemap({ data, height }) {
                                     <svg ref={svgRef} />
                                     <svg
                             ref={legendRef}
-                            style={{ marginTop: '10px ' }}
+                            style={ { marginTop: '10px ' } }
                         />         {' '}
                     </>
                 )}

@@ -1,0 +1,61 @@
+---
+layout: post
+title: 리액트 화면 내 요소 분할 스크롤
+date: 2023-11-14 03:00:00 +0900
+category: CSS
+published: true
+---
+
+## 개요
+
+하나의 컬럼에서 요소 하나를 제외한 나머지 요소들만 스크롤 되게 하려고 한다.
+기존에는 전체가 한 번에 움직이는 방식이었다.
+
+## 기존 
+
+![기존](/public/img/scroll/%EA%B8%B0%EC%A1%B4.gif){: width="800px"}
+
+## 수정 후
+
+![분할스크롤](/public/img/scroll/%EB%B6%84%ED%95%A0%EC%8A%A4%ED%81%AC%EB%A1%A4.gif){: width="800px"}
+
+제일 위에 놓인 카드는 고정된 채 나머지 요소들만 스크롤되는 것을 볼 수 있다.<br>
+<br>
+나는 리액트와 Bootstrap Falcon UI를 사용했다.<br>
+
+## 코드
+
+```jsx
+return (
+    <div className="overflow-hidden">
+        <Row>
+            <Col
+                style={ {
+                    // maxHeight(혹은 height)과 overflowY는 짝꿍
+                    maxHeight: '100px',
+                    overflowY: 'auto',
+                } }
+            >
+
+                {/* 고정시킬 Row */}
+                <Row
+                    className="sticky-top" // 요소를 고정할 수 있게 해주는 클래스
+                    style={ {
+                        // 해당 클래스는 css 'top'과 같이 쓰여야 한다. 위 아래 위치 설정
+                        top: '0', // 변경해가면서 원하는 위치에 고정
+                    } }
+                >
+                    <Col>
+                        <PatientInfo /> 
+                    </Col>
+                </Row>
+
+                {/* 스크롤 되는 다른 Rows */}
+                <Row>{/* ... */}</Row>
+            </Col>
+
+            <Col>{/* ... */}</Col>
+        </Row>
+    </div>
+)
+```
