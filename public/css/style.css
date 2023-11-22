@@ -557,6 +557,34 @@ pre {
     font-size: 0.9rem;
 }
 
+/* 코드블럭 스크롤 스타일 */
+
+pre.highlight {
+    overflow: auto; /* 스크롤 바가 필요할 때만 표시 */
+}
+
+/* 스크롤 바의 기본 상태 설정 */
+pre.highlight::-webkit-scrollbar {
+    width: 6px; /* 스크롤 바의 폭 */
+    height: 6px; /* 스크롤 바의 높이 */
+    background-color: transparent; /* 스크롤 바 배경색 */
+}
+
+/* 스크롤 바의 썸(움직이는 부분) 설정 */
+pre.highlight::-webkit-scrollbar-thumb {
+    border-radius: 10px; /* 스크롤 바 썸의 둥근 모서리 */
+    background-color: transparent; /* 기본 상태에서 투명 */
+    transition: background-color 0.3s ease; /* 배경색 변경 애니메이션 */
+    -webkit-transition: background-color 1000ms linear;
+}
+
+/* 마우스 오버 시 스크롤 바 썸 표시 */
+pre.highlight:hover::-webkit-scrollbar-thumb {
+    background-color: lightgray; /* 스크롤 바 썸의 색상 */
+    transition: background-color 0.3s ease; /* 배경색 변경 애니메이션 */
+    -webkit-transition: background-color 1000ms linear;
+}
+
 /* 인라인 코드 스타일 */
 code.highlighter-rouge {
     font-size: 14px;
