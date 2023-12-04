@@ -288,26 +288,33 @@ requestMatchers(ControllerConstant.DATA_CDSS + "/**").permitAll()
 requestMatchers(ControllerConstant.DATA_CDSS + "/**").authenticated()
 ```
 
-로 변경했더니 CORS 에러가 발생.
+로 변경했더니 CORS 에러가 발생.<br>
+<br>
 
-`OPTIONS` method 에서는 인증 절차를 거치지 않는 것이 맞는데,
-`authenticated()`를 사용하니까 `/cdss` 뒤로 따라붙는 API 요청에 대해서는 `OPTIONS` 메서드까지 인증을 필요로 하게 된 것.
-
-그래서 `OPTIONS` 요청에 대해서는 `permitAll()` 설정을 추가
-
+`OPTIONS` method 에서는 인증 절차를 거치지 않는 것이 맞는데,<br>
+`authenticated()`를 사용하니까 `/cdss` 뒤로 따라붙는 API 요청에 대해서는 `OPTIONS` 메서드까지 인증을 필요로 하게 된 것.<br>
+<br>
+그래서 `OPTIONS` 요청에 대해서는 `permitAll()` 설정을 추가<br>
+<br>
 `permitAll()`과 `authenticated()`는 Spring Security에서 HTTP 요청에 대한 접근 권한을 설정할 때 사용하는 메서드다. <br>
 각각의 메서드는 다음과 같은 차이점을 가진다. <br>
+<br>
 
-`permitAll()`
+#### permitAll()
 
-`permitAll()`은 지정된 경로로의 모든 요청을 허용한다. 즉, 인증(로그인) 여부와 관계없이 모든 사용자가 해당 경로에 접근할 수 있다.
-이 설정은 일반적으로 공개적으로 접근 가능해야 하는 자원 (예: 홈페이지, 로그인 페이지, 공개 API 등)에 사용된다.
-예: `.requestMatchers("/public/\*\*").permitAll()`은 "/public" 경로 하위의 모든 요청을 누구나 접근할 수 있도록 설정한다.
+<br>
 
-`authenticated()`
+`permitAll()`은 지정된 경로로의 모든 요청을 허용한다. 즉, 인증(로그인) 여부와 관계없이 <br>
+모든 사용자가 해당 경로에 접근할 수 있다.<br>
+이 설정은 일반적으로 공개적으로 접근 가능해야 하는 자원 (예: 홈페이지, 로그인 페이지, 공개 API 등)에 사용된다. <br>
+예: `.requestMatchers("/public/\*\*").permitAll()`은 "/public" 경로 하위의 모든 요청을 누구나 접근할 수 있도록 설정한다. <br>
 
-`authenticated()`는 인증된(로그인한) 사용자만이 지정된 경로에 접근할 수 있도록 한다.
-인증되지 않은 사용자가 이 경로에 접근하려고 할 경우, 보통 로그인 페이지로 리디렉션되거나 401 Unauthorized 에러가 발생한다.
-예: `.requestMatchers("/private/**").authenticated()`는 "/private" 경로 하위의 모든 요청을 인증된 사용자만이 접근할 수 있도록 설정한다.
-따라서, `.requestMatchers(ControllerConstant.DATA_SYSTEM + "/**").permitAll()`는 DATA_SYSTEM 경로 하위의 모든 요청을 누구나 접근할 수 있도록 설정하는 반면,
-`.requestMatchers(ControllerConstant.DATA_CDSS + "/\*\*").authenticated()`는 DATA_CDSS 경로 하위의 모든 요청을 인증된 사용자만이 접근할 수 있도록 설정하는 것을 의미한다.
+#### authenticated()
+
+<br>
+
+`authenticated()`는 인증된(로그인한) 사용자만이 지정된 경로에 접근할 수 있도록 한다.<br>
+인증되지 않은 사용자가 이 경로에 접근하려고 할 경우, 보통 로그인 페이지로 리디렉션되거나 401 Unauthorized 에러가 발생한다.<br>
+예: `.requestMatchers("/private/**").authenticated()`는 "/private" 경로 하위의 모든 요청을 인증된 사용자만이 접근할 수 있도록 설정한다.<br>
+따라서, `.requestMatchers(ControllerConstant.DATA_SYSTEM + "/**").permitAll()`는 DATA_SYSTEM 경로 하위의 모든 요청을 누구나 접근할 수 있도록 설정하는 반면, <br>
+`.requestMatchers(ControllerConstant.DATA_CDSS + "/\*\*").authenticated()`는 DATA_CDSS 경로 하위의 모든 요청을 인증된 사용자만이 접근할 수 있도록 설정하는 것을 의미한다.<br>
