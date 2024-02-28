@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [리액트 - 스프링 부트] 임시 비밀번호 발급 (메일 전송)
+title: (리액트 - 스프링 부트) 임시 비밀번호 발급 (메일 전송)
 date: 2023-12-27 10:00:00 +0900
 category: Security
 published: true

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [리액트 - 스프링 부트] 로그인 상태 유지
+title: (리액트 - 스프링 부트) 로그인 상태 유지
 date: 2023-12-20 10:00:00 +0900
 category: Security
 published: true
