@@ -10,7 +10,7 @@ published: true
 refreshToken을 cookie에 저장하는 것으로 코드를 수정했어요.<br>
 <br>
 accessToken을 응답 헤더에 실어 보내면 프론트엔드에서 그것을 추출해 axiosInstance의 헤더에 담을 수도 있지만,<br>
-어차피 accessToken은 로컬스토리지(브라우저 단)에 저장되므로, 기존에 응답 바디로 보내던 방식을 그대로 사용하기로 했다.<br>
+어차피 accessToken은 로컬스토리지(브라우저 단)에 저장되므로, 기존에 응답 바디로 보내던 방식을 그대로 사용하기로 했어요.<br>
 
 ## login
 
