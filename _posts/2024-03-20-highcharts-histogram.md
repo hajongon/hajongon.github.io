@@ -10,8 +10,8 @@ published: true
 
 ![highcharts](/public/img/chart/highcharts.png){: width="800px"} <br>
 
-확률 분포를 표현하기 위한 차트를 검색하다가 highcharts 라이브러리를 알게 되었다. <br>
-단순히 확률(x축), 빈도(y축)만 필요했기 때문에 히스토그램 타입으로 바꿔서 사용할 예정이다. <br>
+확률 분포를 표현하기 위한 차트를 검색하다가 highcharts 라이브러리를 알게 되었어요. <br>
+단순히 확률(x축), 빈도(y축)만 필요했기 때문에 히스토그램 타입으로 바꿔서 사용할 예정이에요. <br>
 
 ## 설치
 

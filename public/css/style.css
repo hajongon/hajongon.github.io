@@ -560,7 +560,8 @@ pre {
 /* 코드블럭 스크롤 스타일 */
 
 pre.highlight {
-    overflow: auto; /* 스크롤 바가 필요할 때만 표시 */
+    max-height: 500px;
+    overflow-y: scroll; /* 스크롤 바가 필요할 때만 표시 */
 }
 
 /* 스크롤 바의 기본 상태 설정 */
