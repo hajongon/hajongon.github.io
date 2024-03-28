@@ -7,7 +7,7 @@
 		<a rel="me" href="https://github.com/{{ social.github | cgi_escape | escape }}" title="{{ social.github | escape }}">
 			<svg class="svg-icon grey">
 				<use xlink:href="{{ '/assets/minima-social-icons.svg#github' | relative_url }}" />
-			</svg></a></li>
+			</svg></a>
 	{%- endif -%}
 </div>
 
@@ -46,4 +46,17 @@
 	    {% endfor %}
 	  </nav>
 	</ul>
+
+	<style>
+		.visits-img {
+			margin: 0;
+		}
+	</style>
+
+	<div class="visits-box">
+
+		<a href="https://hits.seeyoufarm.com" class="visits-link">
+			<img class="visits-img" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fhajongon.github.io&count_bg=%238A8A8A&title_bg=%235C5C5C&icon=&icon_color=%23E7E7E7&title=visits&edge_flat=false"/>
+		</a>
+	</div>
 </div>
