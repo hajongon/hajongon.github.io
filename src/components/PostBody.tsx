@@ -6,33 +6,34 @@ import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
+import { Post } from '../../types/post'
 
 type PostBodyProps = {
-    post: Post
+  post: Post
 }
 
 export const PostBody = ({ post }: PostBodyProps) => {
-    return (
-        <MDXRemote
-            source={post.content}
-            components={MdxComponents}
-            options={{
-                mdxOptions: {
-                    remarkPlugins: [remarkGfm, remarkA11yEmoji, remarkBreaks],
-                    rehypePlugins: [
-                        [
-                            rehypePrettyCode,
-                            {
-                                theme: {
-                                    dark: 'github-dark-dimmed',
-                                    light: 'github-light',
-                                },
-                            },
-                        ],
-                        rehypeSlug,
-                    ],
+  return (
+    <MDXRemote
+      source={post.content}
+      components={MdxComponents}
+      options={{
+        mdxOptions: {
+          remarkPlugins: [remarkGfm, remarkA11yEmoji, remarkBreaks],
+          rehypePlugins: [
+            [
+              rehypePrettyCode,
+              {
+                theme: {
+                  dark: 'github-dark-dimmed',
+                  light: 'github-light',
                 },
-            }}
-        />
-    )
+              },
+            ],
+            rehypeSlug,
+          ],
+        },
+      }}
+    />
+  )
 }
