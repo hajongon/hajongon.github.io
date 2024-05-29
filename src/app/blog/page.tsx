@@ -29,7 +29,6 @@ export default async function List({ category }: ListProps) {
             </li>
           ))}
         </ul>
-        <Button>click me</Button>
       </div>
     </section>
   )
