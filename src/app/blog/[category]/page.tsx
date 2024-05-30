@@ -1,10 +1,17 @@
-import { getPostList } from '@/lib/post'
+import { getCategoryList, getPostList } from '@/lib/post'
 import Link from 'next/link'
 
 type CategoryPageProps = {
   params: {
     category: string
   }
+}
+
+export async function generateStaticParams() {
+  const categories = await getCategoryList()
+  return categories.map((category) => ({
+    category,
+  }))
 }
 
 const CategoryPage = async ({ params: { category } }: CategoryPageProps) => {
