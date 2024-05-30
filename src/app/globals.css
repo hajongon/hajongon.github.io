@@ -270,7 +270,7 @@
 
   .double-border {
     position: relative;
-    padding: 1rem; /* 내부 여백 */
+    padding: 1rem;
   }
   .double-border::before,
   .double-border::after {

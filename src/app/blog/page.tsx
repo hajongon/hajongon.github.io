@@ -37,8 +37,8 @@ export default async function List() {
       <div className="vintage-horizontal-line m-4"></div>
 
       <section>
-        <div className="grid grid-cols-10 gap-4">
-          <ul className="col-span-4 vintage-border pl-4 pr-4 pt-8 pb-8">
+        <div className="grid md:grid-cols-10 gap-4">
+          <ul className="md:col-span-4 vintage-border pl-4 pr-4 pt-8 pb-8">
             {categoryList.map((category, i) => (
               <li key={`${i}` + `${category}`}>
                 <Link href={`/blog/${category}`} className="category-link">
@@ -49,7 +49,7 @@ export default async function List() {
               </li>
             ))}
           </ul>
-          <div className="col-span-6 vintage-border-2 pl-4 pr-4 pt-8 pb-8">
+          <div className="md:col-span-6 vintage-border-2 pl-4 pr-4 pt-8 pb-8">
             <div className="grid grid-cols-3 gap-4">
               <div className={`col-span-1 p-4 text-2xl`}>
                 <div className="mb-4">Front-end</div>
