@@ -3,17 +3,13 @@ import { getPostList, getCategoryList } from '@/lib/post'
 import Image from 'next/image'
 import Link from 'next/link'
 
-type ListProps = {
-  category: string
-}
-
 const salsa = Salsa({
   weight: ['400'],
   subsets: ['latin'],
 })
 
 // deploy test
-export default async function List({ category }: ListProps) {
+export default async function List() {
   const categoryList = await getCategoryList()
 
   const postsCount = async (category: string) => {
