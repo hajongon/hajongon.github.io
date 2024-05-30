@@ -1,6 +1,6 @@
 import { getPostDetail } from '@/lib/post'
-import PostHeader from '@/components/PostHeader'
-import { PostBody } from '@/components/PostBody'
+import PostHeader from '@/components/post/PostHeader'
+import { PostBody } from '@/components/post/PostBody'
 
 type PostDetailProps = {
   params: {

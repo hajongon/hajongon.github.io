@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { getPostList } from '@/lib/post'
-import Image from 'next/image'
+// import Image from 'next/image'
 import Link from 'next/link'
 
 type ListProps = {
@@ -12,18 +12,18 @@ export default async function List({ category }: ListProps) {
 
   return (
     <section>
-      <Image
+      {/* <Image
         src="/img/friends.webp"
         alt="friends"
         width={1792 / 4}
         height={1024 / 4}
-      />
+      /> */}
       <div>
-        <h1>Post List</h1>
+        {/* <h1>Post List</h1> */}
         <ul>
           {postList.map((post) => (
             <li key={post.url + post.date}>
-              <Link href={post.url} className="text-xl font-bold">
+              <Link href={post.url} className="text-primary">
                 {post.title}
               </Link>
             </li>

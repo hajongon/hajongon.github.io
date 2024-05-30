@@ -90,12 +90,74 @@
   }
   body {
     @apply bg-background text-foreground;
-    border: 1px solid red;
+    border: 1px solid black;
+    padding: 1rem;
     background-color: #efeae1;
     height: 100dvh;
     width: var(--lg);
   }
   nav {
     font-size: 2rem;
+  }
+}
+
+@layer components {
+  .blog-logo {
+    @apply text-primary -rotate-5;
+  }
+
+  .vintage-line {
+    position: relative;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #000, transparent);
+  }
+  .vintage-line::before,
+  .vintage-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #000);
+  }
+  .vintage-line::after {
+    right: 0;
+    background: linear-gradient(to left, transparent, #000);
+  }
+
+  .double-border {
+    position: relative;
+    padding: 1rem; /* 내부 여백 */
+  }
+  .double-border::before,
+  .double-border::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none; /* 내용과 상호작용 방지 */
+  }
+  .double-border::before {
+    border: 2px solid black; /* 첫 번째 테두리 */
+    transform: translate(-2px, -2px); /* 살짝 위로 이동 */
+  }
+  .double-border::after {
+    border: 2px solid black; /* 두 번째 테두리 */
+    transform: translate(2px, 2px); /* 살짝 아래로 이동 */
+  }
+  .circle-text {
+    width: 100px;
+    height: 100px;
+  }
+
+  .circle-text text {
+    fill: #efeae1;
+    /* font-family: Arial, sans-serif; */
+  }
+
+  .circle {
+    fill: black;
   }
 }

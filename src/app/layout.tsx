@@ -2,6 +2,9 @@ import type { Metadata } from 'next'
 import { Nanum_Gothic_Coding } from 'next/font/google'
 import './globals.css'
 
+import { QuarterCircle } from '@/components/nav/QuarterCircle'
+import { NavbarMenus } from '../components/nav/NavbarMenus'
+
 const nanumGothicCoding = Nanum_Gothic_Coding({
   weight: ['400'],
   subsets: ['latin'],
@@ -20,9 +23,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={nanumGothicCoding.className}>
-        <header>
-          <nav>hajongon</nav>
-        </header>
+        <div className="vintage-line m-4"></div>
+        <div className="double-border flex flex-row flex-auto justify-between">
+          <div className="flex flex-col justify-between">
+            <span className="text-2xl font-extrabold">
+              NO PROBLEM IS A BIG PROBLEM
+            </span>
+            <NavbarMenus />
+          </div>
+          <QuarterCircle />
+        </div>
         {children}
       </body>
     </html>

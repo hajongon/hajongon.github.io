@@ -1,12 +1,12 @@
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import { MdxComponents } from '../mdx'
+import { MdxComponents } from '../../mdx'
 
 import remarkA11yEmoji from '@fec/remark-a11y-emoji'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
-import { Post } from '../../types/post'
+import { Post } from '../../../types/post'
 
 type PostBodyProps = {
   post: Post
