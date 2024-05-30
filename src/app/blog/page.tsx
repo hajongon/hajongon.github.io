@@ -12,6 +12,7 @@ const salsa = Salsa({
   subsets: ['latin'],
 })
 
+// deploy test
 export default async function List({ category }: ListProps) {
   const categoryList = await getCategoryList()
 
