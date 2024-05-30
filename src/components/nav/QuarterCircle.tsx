@@ -26,7 +26,7 @@ export const QuarterCircle = () => {
    A 100,100 0 1,1 149.99, 50"
       />
 
-      <text font-size="32">
+      <text fontSize="32">
         <textPath href="#textPath" startOffset="75%">
           hajongon
         </textPath>

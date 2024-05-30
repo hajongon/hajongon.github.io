@@ -23,8 +23,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={nanumGothicCoding.className}>
-        <div className="vintage-line m-4"></div>
-        <div className="double-border flex flex-row flex-auto justify-between">
+        {/* <div className="vintage-line m-4"></div> */}
+        <div className="double-border flex flex-row flex-auto justify-between mb-4">
           <div className="flex flex-col justify-between">
             <span className="text-2xl font-extrabold">
               NO PROBLEM IS A BIG PROBLEM

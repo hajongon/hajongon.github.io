@@ -106,13 +106,13 @@
     @apply text-primary -rotate-5;
   }
 
-  .vintage-line {
+  .vintage-horizontal-line {
     position: relative;
     height: 1px;
     background: linear-gradient(to right, transparent, #000, transparent);
   }
-  .vintage-line::before,
-  .vintage-line::after {
+  .vintage-horizontal-line::before,
+  .vintage-horizontal-line::after {
     content: '';
     position: absolute;
     top: 0;
@@ -120,9 +120,152 @@
     height: 1px;
     background: linear-gradient(to right, transparent, #000);
   }
-  .vintage-line::after {
+  .vintage-horizontal-line::after {
     right: 0;
     background: linear-gradient(to left, transparent, #000);
+  }
+
+  .vintage-vertical-line {
+    position: relative;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, #000, transparent);
+  }
+  .vintage-vertical-line::before,
+  .vintage-vertical-line::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 1px;
+    height: 50%;
+    background: linear-gradient(to bottom, transparent, #000);
+  }
+  .vintage-vertical-line::after {
+    bottom: 0;
+    background: linear-gradient(to top, transparent, #000);
+  }
+
+  /* vintage square 1 */
+  .vintage-border {
+    position: relative;
+    padding: 1rem;
+    border: 2px solid black;
+    border-radius: 0px;
+    overflow: visible;
+  }
+
+  /* .vintage-border::before,
+  .vintage-border::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 2px solid transparent;
+    clip-path: polygon(
+      0% 0%,
+      10% 5%,
+      20% 0%,
+      30% 10%,
+      40% 0%,
+      50% 10%,
+      60% 0%,
+      70% 10%,
+      80% 0%,
+      90% 5%,
+      100% 0%,
+      100% 20%,
+      90% 0%,
+      80% 0%,
+      70% 90%,
+      60% 100%,
+      50% 90%,
+      40% 100%,
+      30% 90%,
+      20% 100%,
+      10% 95%,
+      0% 100%,
+      0% 0%
+    ); 
+  } */
+
+  .vintage-border::before {
+    border-width: 1px;
+    border-color: black;
+    transform: rotate(-2deg);
+    z-index: 1;
+  }
+
+  .vintage-border::after {
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.7);
+    transform: rotate(2deg);
+    z-index: 2;
+  }
+
+  /* vintage square 2 */
+  .vintage-border-2 {
+    position: relative;
+    padding: 1rem;
+    border: 2px solid black;
+    border-radius: 0px;
+    overflow: visible;
+  }
+
+  .vintage-border-2::before,
+  .vintage-border-2::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: -2px;
+    right: -3px;
+    bottom: -5px;
+    border: 2px solid transparent; /* 기본 보더는 투명하게 설정 */
+
+    clip-path: polygon(
+      0% 0%,
+      10% 95%,
+      20% 0%,
+      30% 10%,
+      40% 0%,
+      50% 10%,
+      60% 0%,
+      70% 10%,
+      80% 100%,
+      90% 5%,
+      100% 0%,
+      100% 20%,
+      90% 0%,
+      80% 0%,
+      70% 90%,
+      60% 100%,
+      50% 90%,
+      40% 100%,
+      30% 70%,
+      20% 100%,
+      10% 95%,
+      0% 100%,
+      0% 0%
+    ); /* 클리핑 경로를 사용하여 불규칙한 패턴을 만듦 */
+  }
+
+  .vintage-border-2::before {
+    border-width: 1px;
+    border-color: black;
+    transform: rotate(1deg);
+    z-index: 1;
+  }
+
+  .vintage-border-2::after {
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.7);
+    transform: rotate(2deg);
+    z-index: 2;
   }
 
   .double-border {
@@ -159,5 +302,13 @@
 
   .circle {
     fill: black;
+  }
+
+  .grayscale-image {
+    filter: grayscale(100%);
+  }
+
+  .category-link {
+    z-index: 1000;
   }
 }

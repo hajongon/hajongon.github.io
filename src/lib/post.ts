@@ -104,3 +104,12 @@ export const getPostDetail = async (
     slug,
   }
 }
+
+// BASE_PATH에 있는 폴더 이름 목록 반환
+export const getCategoryList = async (): Promise<string[]> => {
+  const entries = await fs.readdir(POSTS_PATH, { withFileTypes: true })
+  const directories = entries
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+  return directories
+}
