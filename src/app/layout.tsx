@@ -26,7 +26,7 @@ export default function RootLayout({
         {/* <div className="vintage-line m-4"></div> */}
         <div className="double-border flex flex-row flex-auto justify-between mb-4">
           <div className="flex flex-col justify-between">
-            <span className="text-2xl font-extrabold">
+            <span className="sm:text-sm md:text-2xl font-extrabold">
               NO PROBLEM IS A BIG PROBLEM
             </span>
             <NavbarMenus />

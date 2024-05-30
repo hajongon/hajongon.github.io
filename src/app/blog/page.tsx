@@ -53,8 +53,8 @@ export default async function List() {
             <div className="grid grid-cols-3 gap-4">
               <div className={`col-span-1 p-4 text-2xl`}>
                 <div className="mb-4">Front-end</div>
-                <div className="text-xl mb-2">91. 11. 29</div>
-                <div className="text-xl">Seoul, Korea</div>
+                <div className="sm:text-sm md:text-xl mb-2">91. 11. 29</div>
+                <div className="sm:text-sm md:text-xl">Seoul, Korea</div>
               </div>
               <div className="col-span-2 p-4">
                 <Image
