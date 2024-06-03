@@ -84,6 +84,13 @@ const config = {
         '-60': '-60deg',
         '-120': '-120deg',
       },
+      width: {
+        page: 'var(--page-width)',
+        content: 'var(--content-width)',
+      },
+      spacing: {
+        page: 'var(--page-top)',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],

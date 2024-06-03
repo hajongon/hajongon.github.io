@@ -1,11 +1,12 @@
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { MdxComponents } from '../../mdx'
-
 import remarkA11yEmoji from '@fec/remark-a11y-emoji'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
+import remarkToc from 'remark-toc'
+import 'github-markdown-css/github-markdown.css'
 import { Post } from '../../../types/post'
 
 type PostBodyProps = {
@@ -14,23 +15,32 @@ type PostBodyProps = {
 
 export const PostBody = ({ post }: PostBodyProps) => {
   return (
-    <MDXRemote
-      source={post.content}
-      components={MdxComponents}
-      options={{
-        mdxOptions: {
-          remarkPlugins: [remarkGfm, remarkA11yEmoji, remarkBreaks],
-          rehypePlugins: [
-            [
-              rehypePrettyCode,
-              {
-                theme: 'github-light-default',
-              },
+    <div className="">
+      <MDXRemote
+        source={post.content}
+        components={MdxComponents}
+        options={{
+          mdxOptions: {
+            remarkPlugins: [
+              remarkToc,
+              remarkGfm,
+              remarkA11yEmoji,
+              remarkBreaks,
             ],
-            rehypeSlug,
-          ],
-        },
-      }}
-    />
+            rehypePlugins: [
+              [
+                rehypePrettyCode,
+                {
+                  theme: 'github-light-default',
+                },
+              ],
+              rehypeSlug,
+            ],
+          },
+        }}
+      />
+    </div>
   )
 }
+
+export default PostBody
