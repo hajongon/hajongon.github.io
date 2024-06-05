@@ -90,11 +90,11 @@
   }
   body {
     @apply bg-background text-foreground;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 1rem;
     background-color: #efeae1;
-    height: 100dvh;
-    width: var(--lg);
+    /* height: 100dvh; */
+    width: 100dvw;
   }
   nav {
     font-size: 2rem;
@@ -102,6 +102,17 @@
 }
 
 @layer components {
+  .center-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .main-box {
+    width: var(--lg);
+  }
+
   .blog-logo {
     @apply text-primary -rotate-5;
   }

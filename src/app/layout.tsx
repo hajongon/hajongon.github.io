@@ -24,16 +24,18 @@ export default function RootLayout({
     <html lang="en">
       <body className={nanumGothicCoding.className}>
         {/* <div className="vintage-line m-4"></div> */}
-        <div className="double-border flex flex-row flex-auto justify-between mb-4">
-          <div className="flex flex-col justify-between">
-            <span className="sm:text-sm md:text-2xl font-extrabold">
-              NO PROBLEM IS A BIG PROBLEM
-            </span>
-            <NavbarMenus />
+        <div className="center-container">
+          <div className="main-box double-border flex flex-row justify-between mb-4">
+            <div className="flex flex-col justify-between">
+              <span className="sm:text-sm md:text-2xl font-extrabold">
+                NO PROBLEM IS A BIG PROBLEM
+              </span>
+              <NavbarMenus />
+            </div>
+            <QuarterCircle />
           </div>
-          <QuarterCircle />
+          {children}
         </div>
-        {children}
       </body>
     </html>
   )

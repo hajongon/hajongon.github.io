@@ -6,7 +6,6 @@ import rehypeSlug from 'rehype-slug'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
 import remarkToc from 'remark-toc'
-import 'github-markdown-css/github-markdown.css'
 import { Post } from '../../../types/post'
 
 type PostBodyProps = {
@@ -15,31 +14,29 @@ type PostBodyProps = {
 
 export const PostBody = ({ post }: PostBodyProps) => {
   return (
-    <div className="">
-      <MDXRemote
-        source={post.content}
-        components={MdxComponents}
-        options={{
-          mdxOptions: {
-            remarkPlugins: [
-              remarkToc,
-              remarkGfm,
-              remarkA11yEmoji,
-              remarkBreaks,
-            ],
-            rehypePlugins: [
-              [
-                rehypePrettyCode,
-                {
-                  theme: 'github-light-default',
-                },
+    <>
+      <div className="mdx">
+        <MDXRemote
+          source={post.content}
+          components={MdxComponents}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [remarkGfm, remarkA11yEmoji, remarkBreaks],
+              rehypePlugins: [
+                [
+                  rehypePrettyCode,
+                  {
+                    theme: 'github-light-default',
+                    keepBackground: true,
+                  },
+                ],
+                rehypeSlug,
               ],
-              rehypeSlug,
-            ],
-          },
-        }}
-      />
-    </div>
+            },
+          }}
+        />
+      </div>
+    </>
   )
 }
 
