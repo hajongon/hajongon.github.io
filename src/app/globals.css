@@ -87,6 +87,7 @@
   html {
     display: flex;
     justify-content: center;
+    font: 400 62.5%/1.5 Pretendard Variable, -apple-system, BlinkMacSystemFont, system-ui, Roboto,    'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
   }
   body {
     @apply bg-background text-foreground;
@@ -110,7 +111,7 @@
   }
 
   .main-box {
-    width: var(--lg);
+    width: var(--content-width);
   }
 
   .blog-logo {
