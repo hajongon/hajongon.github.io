@@ -35,7 +35,6 @@ export default async function List() {
   return (
     <>
       <div className="vintage-horizontal-line m-4"></div>
-
       <section>
         <div className="grid md:grid-cols-10 gap-4">
           <ul className="md:col-span-4 vintage-border pl-4 pr-4 pt-8 pb-8">
