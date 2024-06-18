@@ -77,13 +77,13 @@ export const MdxComponents = {
     <h3 style={{ fontSize: '1rem', marginBottom: '0.8rem' }} {...props} />
   ),
 
-  p: (props: any) => (
-    <p
-      style={{ fontSize: '1rem', marginBottom: '0.8rem' }}
-      className="text-slate-600"
-      {...props}
-    />
-  ),
+  // p: (props: any) => (
+  //   <p
+  //     style={{ fontSize: '1rem', marginBottom: '0.8rem' }}
+  //     className="text-slate-600"
+  //     {...props}
+  //   />
+  // ),
   // blockquote: Callout,
   // Callout,
 }

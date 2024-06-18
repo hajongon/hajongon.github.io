@@ -39,15 +39,13 @@ const PostDetail = async ({ params: { category, slug } }: PostDetailProps) => {
   const toc = parseToc(post.content)
 
   return (
-    <div className="flex flex-row w-100">
+    <>
       <Aside>
-        <TableOfContent data-animate className="px-2 text-sm" toc={toc} />
-      </Aside>{' '}
-      <div className="main-box">
-        <PostHeader post={post} />
-        <PostBody post={post} />
-      </div>
-    </div>
+        <TableOfContent data-animate className="px-4" toc={toc} />
+      </Aside>
+      <PostHeader post={post} />
+      <PostBody post={post} />
+    </>
   )
 }
 

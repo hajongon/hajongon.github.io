@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export const NavbarMenus = () => {
   return (
-    <div className="flex flex-row flex-start gap-x-4 ml-4">
+    <div className="flex flex-row flex-start gap-x-4 ml-4 p-2">
       <Link href="/blog" className="-rotate-5 border-b border-black">
         HOME
       </Link>
