@@ -1,0 +1,77 @@
+---
+title: '깃헙 파일 비교 구현 diff2html 라이브러리'
+date: 2024-05-28
+desc: '-'
+---
+
+
+## Diff2HTML 실습 예제
+
+!['diff2html을 사용해 두개의 문자열을 비교한 모습'](/posts/etc/diff2html/diff2html-rendered.webp)
+
+### 문제 1: `diff-match-patch` 는 `diff` 시각화가 어렵다.
+---
+
+`diff-match-patch`를 사용해 `diff`를 시각화하려고 했으나, 다음과 같은 문제들이 있었습니다:
+
+- 설정이 복잡하고, 원하는 결과를 얻기 위해 많은 조정이 필요함.
+- 기본적으로 HTML 포맷으로 변환되지 않아서 추가 작업이 필요함.
+
+
+### 문제 2: diff2html의 demo는 pull request 링크를 사용한다.
+
+diff2html의 데모 예제는 GitHub의 pull request 링크를 사용하는 경우가 많아, 순수 텍스트 두 개를 비교하는 예제를 찾기 어려웠습니다. 이는 순수 텍스트 비교를 필요로 하는 저와 같은 사용자에게는 불편함을 초래했습니다.
+
+### 해결 방법: diff 라이브러리와 diff2html 사용
+
+`diff` 라이브러리의 `createPatch` 메서드를 사용해 두 텍스트의 diff를 생성하고, 이를 `diff2html`에 전달하여 시각화하는 방법으로 문제를 해결했습니다. 이를 통해 두 텍스트 파일의 차이를 쉽게 시각화할 수 있습니다.
+
+### 각 메서드의 동작 원리
+
+#### diff 라이브러리의 createPatch 메서드
+
+`createPatch` 메서드는 두 텍스트 간의 차이를 나타내는 패치를 생성합니다. 이 패치는 diff 형식으로 생성되며, 이를 통해 두 텍스트의 변경 사항을 쉽게 확인할 수 있습니다. 기본적인 사용법은 다음과 같습니다:
+
+```javascript
+const diff = Diff.createPatch('filename', oldText, newText);
+```
+
+이 메서드는 네 가지 인수를 받습니다:
+
+- `filename`: 패치 파일의 이름.
+- `oldText`: 비교할 첫 번째 텍스트.
+- `newText`: 비교할 두 번째 텍스트.
+- `oldHeader`, `newHeader`: (선택 사항) 패치 파일에 추가할 텍스트 헤더.
+
+#### diff2html 라이브러리의 draw 메서드
+
+`diff2html`은 diff 데이터를 HTML 형식으로 변환해주는 라이브러리입니다. `draw` 메서드는 주어진 diff 데이터를 시각적으로 표현합니다. `diff2html-ui` 모듈을 사용하여 구성 및 시각화를 설정할 수 있습니다.
+
+기본적인 사용법은 다음과 같습니다:
+
+```javascript
+const diff2htmlUi = new Diff2HtmlUI(targetElement, diff, configuration);
+diff2htmlUi.draw();
+diff2htmlUi.highlightCode();
+```
+
+### configuration 옵션 상세 설명
+
+- `drawFileList`: 파일 목록을 그릴지 여부를 설정합니다. 기본값은 `true`입니다.
+- `fileListToggle`: 파일 목록 토글 버튼을 활성화할지 여부를 설정합니다. 기본값은 `false`입니다.
+- `fileContentToggle`: 파일 내용 토글 버튼을 활성화할지 여부를 설정합니다. 기본값은 `true`입니다.
+- `fileListStartVisible`: 파일 목록을 기본적으로 보이게 할지 여부를 설정합니다. 기본값은 `false`입니다.
+- `matching`: diff 매칭 방법을 설정합니다. 예를 들어, `'lines'`는 줄 단위로 매칭합니다.
+- `outputFormat`: 출력 형식을 설정합니다. `'line-by-line'` 또는 `'side-by-side'`가 가능합니다.
+- `synchronisedScroll`: 동기화된 스크롤을 활성화할지 여부를 설정합니다. 기본값은 `true`입니다.
+- `highlight`: 코드 하이라이팅을 활성화할지 여부를 설정합니다. 기본값은 `true`입니다.
+- `renderNothingWhenEmpty`: diff가 없을 때 아무것도 렌더링하지 않도록 설정합니다. 기본값은 `false`입니다.
+
+### 해결 과정 요약
+
+1. diff-match-patch 사용 시 발생한 문제점을 분석했습니다.
+2. `diff` 라이브러리의 `createPatch` 메서드를 사용해 두 텍스트의 diff를 생성했습니다.
+3. 생성된 diff 데이터를 `diff2html` 라이브러리를 사용해 시각화했습니다.
+4. 각 메서드와 설정 옵션을 이해하고 적절히 구성하여 문제를 해결했습니다.
+
+이제 여러분도 이 방법을 따라 두 텍스트의 diff를 쉽게 시각화할 수 있습니다!

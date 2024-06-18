@@ -1,4 +1,15 @@
-import Image from 'next/image'
+import dynamic from 'next/dynamic'
+
+const DynamicImage = dynamic(() => import('next/image'), { ssr: false })
+
+const CustomImage = (props: any) => (
+  <DynamicImage
+    {...props}
+    width={props.width || 800} // 기본값을 지정하거나 props에서 가져오기
+    height={props.height || 800} // 기본값을 지정하거나 props에서 가져오기
+    alt={props.alt || ''}
+  />
+)
 
 export type TOCSubSection = {
   slug: string
@@ -45,7 +56,7 @@ export const parseToc = (source: string) => {
 
 export const MdxComponents = {
   // a: ExternalLink as any,
-  img: Image as any,
+  img: CustomImage as any,
   h1: (props: any) => (
     <h1
       style={{
