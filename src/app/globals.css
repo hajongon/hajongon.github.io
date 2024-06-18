@@ -112,6 +112,11 @@
 
   .main-box {
     width: var(--content-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: var(--page-top);
+    padding-bottom: var(--page-top);
+    font-size: 1.2rem;
   }
 
   .blog-logo {
@@ -282,6 +287,8 @@
 
   .double-border {
     position: relative;
+    /* padding-top: 1rem; */
+    /* padding-left: 1rem; */
     padding: 1rem;
   }
   .double-border::before,
@@ -296,11 +303,11 @@
   }
   .double-border::before {
     border: 2px solid black; /* 첫 번째 테두리 */
-    transform: translate(-2px, -2px); /* 살짝 위로 이동 */
+    transform: translate(2px, 2px); /* 살짝 아래로 이동 */
   }
   .double-border::after {
     border: 2px solid black; /* 두 번째 테두리 */
-    transform: translate(2px, 2px); /* 살짝 아래로 이동 */
+    transform: translate(-2px, -2px); /* 살짝 위로 이동 */
   }
   .circle-text {
     width: 100px;

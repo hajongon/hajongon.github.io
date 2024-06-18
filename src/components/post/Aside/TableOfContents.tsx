@@ -15,7 +15,7 @@ export default function TableOfContent({
   const { currentSectionSlug } = useTocScroll(toc)
 
   return (
-    <ul {...props} className={`space-y-2.5 font-sans text-sm ${className}`}>
+    <ul {...props} className={`space-y-2.5 font-sans ${className}`}>
       {toc.map((section, i) => {
         console.log(currentSectionSlug, section.slug)
         return (
@@ -24,7 +24,7 @@ export default function TableOfContent({
               className={`
               link  ${
                 currentSectionSlug === section.slug
-                  ? 'text-medium text-orange-600'
+                  ? 'text-orange-600'
                   : 'text-slate-500'
               }
             `}

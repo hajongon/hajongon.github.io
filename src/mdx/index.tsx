@@ -46,33 +46,33 @@ export const parseToc = (source: string) => {
 export const MdxComponents = {
   // a: ExternalLink as any,
   img: Image as any,
-  h1: (props: any) => (
-    <h1
-      style={{
-        fontSize: '1rem',
-        fontWeight: 'bold',
-        marginBottom: '0.8rem',
-      }}
-      {...props}
-    />
-  ),
-  h2: (props: any) => (
-    <h2
-      style={{ fontSize: '1rem', fontWeight: 'bold', marginBottom: '0.8rem' }}
-      {...props}
-    />
-  ),
-  h3: (props: any) => (
-    <h3 style={{ fontSize: '1rem', marginBottom: '0.8rem' }} {...props} />
-  ),
+  // h1: (props: any) => (
+  //   <h1
+  //     style={{
+  //       fontSize: '1rem',
+  //       fontWeight: 'bold',
+  //       marginBottom: '0.8rem',
+  //     }}
+  //     {...props}
+  //   />
+  // ),
+  // h2: (props: any) => (
+  //   <h2
+  //     style={{ fontSize: '1rem', fontWeight: 'bold', marginBottom: '0.8rem' }}
+  //     {...props}
+  //   />
+  // ),
+  // h3: (props: any) => (
+  //   <h3 style={{ fontSize: '1rem', marginBottom: '0.8rem' }} {...props} />
+  // ),
 
-  p: (props: any) => (
-    <p
-      style={{ fontSize: '1rem', marginBottom: '0.8rem' }}
-      className="text-slate-600"
-      {...props}
-    />
-  ),
+  // p: (props: any) => (
+  //   <p
+  //     style={{ fontSize: '1rem', marginBottom: '0.8rem' }}
+  //     className="text-slate-600"
+  //     {...props}
+  //   />
+  // ),
   // blockquote: Callout,
   // Callout,
 }
