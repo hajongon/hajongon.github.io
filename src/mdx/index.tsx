@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic'
 import { Callout } from './Callout'
 import { Image } from './Image'
+import { Pre } from './codeblock/Pre'
 
 const DynamicImage = dynamic(() => import('next/image'), { ssr: false })
 
@@ -103,4 +104,5 @@ export const MdxComponents = {
   ),
   blockquote: Callout,
   Callout,
+  pre: Pre as any,
 }

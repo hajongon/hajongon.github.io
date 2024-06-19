@@ -14,7 +14,7 @@ const blackHanSans = Black_Han_Sans({
 export const PostHeader = ({ post }: PostHeaderProps) => {
   return (
     <div className="grid grid-cols-5 gap-2 mb-4">
-      <div className="col-span-4 border-2 border-slate-800 bg-transparent">
+      {/* <div className="col-span-4 border-2 border-slate-800 bg-transparent">
         <h1
           className={`text-[#efeae1] bg-black p-4 text-xl font-bold`}
           style={{
@@ -37,7 +37,7 @@ export const PostHeader = ({ post }: PostHeaderProps) => {
           <div className="text-lg">category:</div>
           <div>{post.category}</div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

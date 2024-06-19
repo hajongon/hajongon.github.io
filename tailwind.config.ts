@@ -112,6 +112,16 @@ const config = {
               counterReset: 'line',
             },
             // Inline code only
+
+            '.code-header': {
+              padding: '0.5rem 1rem',
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginBottom: '1rem',
+              color: '#afafaf',
+              fontSize: '1.2rem',
+            },
+
             ':not(pre) > code': {
               fontWeight: 'inherit',
               position: 'relative',
@@ -151,6 +161,7 @@ const config = {
               position: 'relative',
               padding: '1rem 0',
               paddingRight: '1rem',
+              paddingBottom: '2rem !important',
               color: 'var(--shiki-light)',
               backgroundColor: 'var(--shiki-light-bg)',
               border: '1px solid #e5e7eb',
@@ -191,6 +202,9 @@ const config = {
               textUnderlineOffset: '4px',
               textDecorationThickness: 1,
               fontWeight: 600,
+            },
+            'toc-text': {
+              fontSize: '1.2rem',
             },
           },
         },
