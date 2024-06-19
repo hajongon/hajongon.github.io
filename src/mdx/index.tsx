@@ -1,4 +1,6 @@
 import dynamic from 'next/dynamic'
+import { Callout } from './Callout'
+import { Image } from './Image'
 
 const DynamicImage = dynamic(() => import('next/image'), { ssr: false })
 
@@ -56,11 +58,11 @@ export const parseToc = (source: string) => {
 
 export const MdxComponents = {
   // a: ExternalLink as any,
-  img: CustomImage as any,
+  img: Image as any,
   h1: (props: any) => (
     <h1
       style={{
-        fontSize: '1rem',
+        fontSize: '1.6rem',
         fontWeight: 'bold',
         marginBottom: '0.8rem',
       }}
@@ -69,21 +71,36 @@ export const MdxComponents = {
   ),
   h2: (props: any) => (
     <h2
-      style={{ fontSize: '1rem', fontWeight: 'bold', marginBottom: '0.8rem' }}
+      style={{
+        fontSize: '1.6rem',
+        fontWeight: 'bolder',
+        marginBottom: '0.8rem',
+      }}
       {...props}
     />
   ),
   h3: (props: any) => (
-    <h3 style={{ fontSize: '1rem', marginBottom: '0.8rem' }} {...props} />
+    <h3 style={{ fontSize: '1.6rem', marginBottom: '0.8rem' }} {...props} />
   ),
 
-  // p: (props: any) => (
-  //   <p
-  //     style={{ fontSize: '1rem', marginBottom: '0.8rem' }}
-  //     className="text-slate-600"
-  //     {...props}
-  //   />
-  // ),
-  // blockquote: Callout,
-  // Callout,
+  h4: (props: any) => (
+    <h4
+      style={{
+        fontSize: '1.6rem',
+        fontWeight: 'bolder',
+        marginBottom: '0.8rem',
+      }}
+      {...props}
+    />
+  ),
+
+  p: (props: any) => (
+    <p
+      style={{ fontSize: '1.6rem', marginBottom: '0.8rem' }}
+      className="text-slate-600"
+      {...props}
+    />
+  ),
+  blockquote: Callout,
+  Callout,
 }

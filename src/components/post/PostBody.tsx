@@ -15,7 +15,7 @@ type PostBodyProps = {
 export const PostBody = ({ post }: PostBodyProps) => {
   return (
     <>
-      <div className="mdx">
+      <div className="mdx prose">
         <MDXRemote
           source={post.content}
           components={MdxComponents}

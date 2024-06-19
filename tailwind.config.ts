@@ -1,3 +1,4 @@
+import { Exo_2 } from 'next/font/google'
 import type { Config } from 'tailwindcss'
 
 const config = {
@@ -91,9 +92,112 @@ const config = {
       spacing: {
         page: 'var(--page-top)',
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            fontSize: '1.6rem',
+            maxWidth: 'none', // Remove max-width for prose
+            'h1, h2, h3, h4': {
+              marginTop: '5rem',
+              scrollMarginTop: '5rem',
+            },
+            p: {
+              marginTop: '2rem',
+              marginBottom: '2rem',
+            },
+            '.callout-contents > p': {
+              margin: 0,
+            },
+            code: {
+              counterReset: 'line',
+            },
+            // Inline code only
+            ':not(pre) > code': {
+              fontWeight: 'inherit',
+              position: 'relative',
+              bottom: 1,
+              margin: '0 3px',
+              color: '#eb5757',
+              backgroundColor: 'rgba(135,131,120,0.15)',
+              fontFamily:
+                '"SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace',
+              borderRadius: 3,
+              padding: '0.2em 0.4em',
+              overflowWrap: 'break-word',
+            },
+            'code::before': {
+              content: 'none',
+            },
+            'code::after': {
+              content: 'none',
+            },
+            'code[data-line-numbers] > [data-line]::before': {
+              counterIncrement: 'line',
+              content: 'counter(line)',
+              /* Other styling */
+              display: 'inline-block',
+              width: '1rem',
+              marginRight: '1.4rem',
+              textAlign: 'right',
+              color: 'lightgrey',
+              fontSize: '0.7rem',
+            },
+            'code[data-line]': {
+              display: 'block',
+              paddingLeft: '4rem',
+              position: 'relative',
+            },
+            pre: {
+              position: 'relative',
+              padding: '1rem 0',
+              paddingRight: '1rem',
+              color: 'var(--shiki-light)',
+              backgroundColor: 'var(--shiki-light-bg)',
+              border: '1px solid #e5e7eb',
+            },
+            '.dark pre': {
+              backgroundColor: 'var(--shiki-dark-bg)',
+              color: 'var(--shiki-dark)',
+              border: '1px solid #374151',
+            },
+            'figure pre': {
+              padding: '2rem 0 2rem 0',
+            },
+            'pre > code': {
+              display: 'block',
+              padding: '0 1rem',
+              counterReset: 'line',
+            },
+            'pre code [data-line]::before': {
+              content: 'counter(line)',
+              counterIncrement: 'line',
+              position: 'absolute',
+              paddingTop: '0.3rem',
+              left: '1rem',
+              color: 'grey',
+              fontSize: '1.2rem',
+              textAlign: 'right',
+              width: '3rem',
+            },
+            'pre code [data-line]': {
+              borderLeft: '1px solid #e5e7eb',
+              paddingLeft: '2rem',
+              marginLeft: '5rem',
+            },
+            '[data-highlighted-line]': {
+              backgroundColor: 'rgba(253, 224, 71, 0.2)',
+            },
+            u: {
+              textUnderlineOffset: '4px',
+              textDecorationThickness: 1,
+              fontWeight: 600,
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 } satisfies Config
 
 export default config

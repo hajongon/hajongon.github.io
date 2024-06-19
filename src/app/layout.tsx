@@ -26,7 +26,7 @@ export default function RootLayout({
         <div className="main-box">
           <div className="double-border flex flex-row justify-between mb-4">
             <div className="flex flex-col justify-between">
-              <span className="sm:text-sm md:text-2xl font-extrabold">
+              <span className="sm:text-sm md:text-3xl font-extrabold">
                 NO PROBLEM IS A BIG PROBLEM
               </span>
               <NavbarMenus />

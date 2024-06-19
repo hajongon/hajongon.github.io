@@ -8,7 +8,7 @@
     --lg: 1024px;
     --md: 768px;
     --sm: 640px;
-    --page-top: 128px;
+    --page-top: 64px;
     --page-width: 1072px;
     --content-width: 640px;
     --body-margin-left: max(24px, env(safe-area-inset-left));
@@ -87,7 +87,9 @@
   html {
     display: flex;
     justify-content: center;
-    font: 400 62.5%/1.5 Pretendard Variable, -apple-system, BlinkMacSystemFont, system-ui, Roboto,    'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    font: 400 62.5%/1.5 Pretendard Variable, -apple-system, BlinkMacSystemFont,
+      system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+      'Noto Sans KR', 'Malgun Gothic', sans-serif;
   }
   body {
     @apply bg-background text-foreground;
@@ -116,7 +118,7 @@
     margin-right: auto;
     padding-top: var(--page-top);
     padding-bottom: var(--page-top);
-    font-size: 1.2rem;
+    font-size: 1.6rem;
   }
 
   .blog-logo {

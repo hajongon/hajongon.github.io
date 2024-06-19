@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@fec/remark-a11y-emoji": "^4.0.2",
+    "@mdx-js/loader": "^3.0.1",
     "@radix-ui/react-slot": "^1.0.2",
+    "@tailwindcss/typography": "^0.5.13",
     "@types/glob": "^8.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
