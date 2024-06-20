@@ -5,6 +5,7 @@ import Link from 'next/link'
 // deploy test
 export default async function List() {
   const categoryList = await getCategoryList()
+  const postList = await getPostList()
 
   const postsCount = async (category: string) => {
     const postList = await getPostList(category)
@@ -14,31 +15,66 @@ export default async function List() {
       : postList.length + ' ' + postfix.slice(0, -1)
   }
 
-  // const getStringLength = (str: string) => {
-  //   let length = 0
-  //   for (let char of str) {
-  //     length += char.match(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/) ? 2 : 1
-  //   }
-  //   return length
-  // }
-
-  // const generateDots = (category: string, maxLength: number) => {
-  //   const categoryLength = getStringLength(category)
-  //   const dotsLength = Math.floor(maxLength - categoryLength / 2 + 0)
-  //   return '·'.repeat(dotsLength > 0 ? dotsLength : 0)
-  // }
-
-  // const maxCategoryLength = Math.max(
-  //   ...categoryList.map((category) => getStringLength(category)),
-  // )
+  // 최신 포스트를 날짜 순으로 정렬
+  const sortedPostList = postList.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  )
+  const [latestPost, secondLatestPost, thirdLatestPost] = sortedPostList.slice(
+    0,
+    3,
+  )
 
   return (
     <>
       <div className="vintage-horizontal-line m-4"></div>
-      <section>
+      <section className="w-full">
+        <div className="space-y-4 mb-4 w-full">
+          <div className="grid grid-cols-3 gap-4">
+            <div className="col-span-2 border border-slate-600 p-4">
+              <Link href={latestPost.url}>
+                <Image
+                  className="grayscale-image w-full mb-4 border border-slate-600"
+                  src={latestPost.thumbnail}
+                  width={300}
+                  height={300}
+                  alt="latest post thumbnail"
+                />
+                <div className="text-2xl mb-4">{latestPost.title}</div>
+              </Link>
+            </div>
+
+            <div className="col-span-1 grid grid-rows-4 gap-4">
+              <div className="border row-span-3 border-slate-600 p-4 w-full">
+                <Link href={secondLatestPost.url}>
+                  <Image
+                    className="grayscale-image mb-4 w-full border border-slate-600"
+                    src={secondLatestPost.thumbnail}
+                    width={100}
+                    height={100}
+                    alt="second latest post thumbnail"
+                  />
+                  <div className="text-xl">{secondLatestPost.title}</div>
+                </Link>
+              </div>
+              <div className="border row-span-1 border-slate-600 p-4">
+                <Link href={thirdLatestPost.url}>
+                  {/* <Image
+                    className="grayscale-image w-full mb-4"
+                    src={thirdLatestPost.thumbnail}
+                    width={150}
+                    height={150}
+                    alt="third latest post thumbnail"
+                  /> */}
+                  <div className="text-xl mb-4">{thirdLatestPost.title}</div>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="grid md:grid-cols-10 gap-4">
           <ul className="md:col-span-5 vintage-border pl-4 pr-4 pt-8 pb-8">
-            {categoryList.map((category, i) => (
+            {categoryList.map(async (category, i) => (
               <li key={`${i}` + `${category}`}>
                 <Link
                   href={`/blog/${category}`}
@@ -47,13 +83,12 @@ export default async function List() {
                   <span className="md:col-span-5">{category}</span>
                   <span className="md:col-span-1">···</span>
                   <span className="md:col-span-4 text-end">
-                    {postsCount(category)}
+                    {await postsCount(category)}
                   </span>
                 </Link>
               </li>
             ))}
           </ul>
-          {/* <div className="md:col-span-5 vintage-border-2 pl-4 pr-4 pt-8 pb-8"> */}
           <div className="md:col-span-5 vintage-border pl-4 pr-4 pt-8 pb-8">
             <div className="grid grid-cols-3 gap-4">
               <div className={`col-span-1 p-4 text-2xl`}>
