@@ -1,0 +1,151 @@
+---
+title: 'MDX Remote 코드블럭 복사 버튼 만들기'
+date: 2024-06-20
+desc: 코드블럭을 한 번에 클립보드에 복사할 수 있는 버튼 만들기
+---
+
+코드블럭을 한 번에 클립보드에 복사할 수 있는 버튼을 만들어 봐요. 아래 아티클을 참고해서 작업을 진행했어요.
+
+<a href="https://claritydev.net/blog/copy-to-clipboard-button-nextjs-mdx-rehype" target="_blank" rel="noopener"> Copy to Clipboard Button In MDX with Next.js and Rehype Pretty Code </a>
+
+## 1. Rehype 플러그인 작성
+
+코드블럭의 원시 텍스트를 추출하기 위해 `rehypeRawPlugin`과 `rehypeAddRawToPrePlugin` 플러그인을 작성해요.
+
+```javascript
+import { visit } from 'unist-util-visit'
+
+// `pre` 태그에서 원시 코드를 추출하는 플러그인
+export const rehypeRawPlugin = () => {
+  return (tree: any) => {
+    // 트리의 각 노드를 방문
+    visit(tree, (node) => {
+      // 노드가 `element` 타입이고 `pre` 태그인지 확인
+      if (node?.type === 'element' && node?.tagName === 'pre') {
+        // `pre` 태그의 첫 번째 자식 요소를 구조 분해 할당
+        const [codeEl] = node.children
+        // 자식 요소가 `code` 태그가 아니면 반환
+        if (codeEl.tagName !== 'code') return
+        // `code` 태그의 첫 번째 자식 요소의 값을 `raw` 속성에 할당
+        node.raw = codeEl.children?.[0].value
+      }
+    })
+  }
+}
+```
+
+```javascript
+// `figure` 태그의 `pre` 태그에 원시 코드를 추가하는 플러그인
+export const rehypeAddRawToPrePlugin = () => {
+  return (tree: any) => {
+    // 트리의 각 노드를 방문
+    visit(tree, (node) => {
+      // 노드가 `element` 타입이고 `figure` 태그인지 확인
+      if (node?.type === 'element' && node?.tagName === 'figure') {
+        // `data-rehype-pretty-code-figure` 속성이 없으면 반환
+        if (!('data-rehype-pretty-code-figure' in node.properties)) {
+          return
+        }
+        // `figure` 태그의 자식 요소들을 순회
+        for (const child of node.children) {
+          // 자식 요소가 `pre` 태그이면 `raw` 속성을 추가
+          if (child.tagName === 'pre') {
+            child.properties['raw'] = node.raw
+          }
+        }
+      }
+    })
+  }
+}
+```
+
+## 2. `Pre` 컴포넌트와 `CopyButton` 컴포넌트 작성
+
+`Pre` 컴포넌트는 코드블럭을 나타내며, 복사 버튼을 포함해요. `CopyButton` 컴포넌트는 텍스트를 클립보드에 복사하는 기능을 제공해요.
+
+```jsx
+import React, { useState } from 'react'
+
+export const Pre = ({ children, raw, ...props }) => {
+  const lang = props['data-language'] || 'shell'
+  return (
+    <pre {...props} className="p-0">
+      <div className="code-header">
+        {lang}
+        {raw && <CopyButton text={raw} />}
+      </div>
+      {children}
+    </pre>
+  )
+}
+
+export const CopyButton = ({ text }) => {
+  const [isCopied, setIsCopied] = useState(false)
+
+  const copy = async () => {
+    await navigator.clipboard.writeText(text)
+    setIsCopied(true)
+
+    setTimeout(() => {
+      setIsCopied(false)
+    }, 10000)
+  }
+
+  return (
+    <button disabled={isCopied} onClick={copy}>
+      {isCopied ? 'Copied!' : 'Copy'}
+    </button>
+  )
+}
+```
+
+## 3. MDX 구성 및 통합
+
+이제 MDX 구성 요소에 새로 작성한 `Pre` 컴포넌트를 포함시켜요. `PostBody` 컴포넌트에서 MDXRemote를 사용하여 포스트 내용을 렌더링할 때 rehype 플러그인도 추가해요.
+
+```jsx
+import { MDXRemote } from 'next-mdx-remote'
+import { Pre } from './Pre'
+import rehypePrettyCode from 'rehype-pretty-code'
+import rehypeSlug from 'rehype-slug'
+import rehypeRawPlugin from './rehypeRawPlugin'
+import rehypeAddRawToPrePlugin from './rehypeAddRawToPrePlugin'
+import remarkGfm from 'remark-gfm'
+import remarkA11yEmoji from 'remark-a11y-emoji'
+import remarkBreaks from 'remark-breaks'
+
+const MdxComponents = {
+  pre: Pre,
+  // 다른 MDX 구성 요소들도 여기에 추가할 수 있어요.
+}
+
+export const PostBody = ({ post }) => {
+  return (
+    <div className="mdx prose">
+      <MDXRemote
+        source={post.content}
+        components={MdxComponents}
+        options={{
+          mdxOptions: {
+            remarkPlugins: [remarkGfm, remarkA11yEmoji, remarkBreaks],
+            rehypePlugins: [
+              rehypeRawPlugin,
+              [
+                rehypePrettyCode,
+                {
+                  theme: 'github-light-default',
+                  keepBackground: true,
+                },
+              ],
+              rehypeSlug,
+              rehypeAddRawToPrePlugin,
+            ],
+          },
+        }}
+      />
+    </div>
+  )
+}
+```
+
+이제 블로그에 코드블럭이 복사 버튼과 함께 잘 나타나게 되었어요. `MDXRemote`와 함께 위의 플러그인 및 컴포넌트를 사용하여 코드블럭 복사 기능을 구현할 수 있어요.

@@ -15,7 +15,12 @@ const config = {
       center: true,
       padding: '2rem',
       screens: {
-        '2xl': '1400px',
+        '2xl': '1536px',
+        xl: '1280px',
+        lg: '1024px',
+        md: '768px',
+        sm: '640px',
+        mobile: { max: '639px' },
       },
     },
     extend: {
@@ -97,13 +102,13 @@ const config = {
           css: {
             fontSize: '1.6rem',
             maxWidth: 'none', // Remove max-width for prose
-            'h1, h2, h3, h4': {
-              marginTop: '5rem',
-              scrollMarginTop: '5rem',
+            'h2, h3': {
+              marginTop: '4rem',
+              scrollMarginTop: '4rem',
             },
             p: {
-              marginTop: '2rem',
-              marginBottom: '2rem',
+              marginTop: '4rem',
+              marginBottom: '4rem',
             },
             '.callout-contents > p': {
               margin: 0,
@@ -202,9 +207,6 @@ const config = {
               textUnderlineOffset: '4px',
               textDecorationThickness: 1,
               fontWeight: 600,
-            },
-            'toc-text': {
-              fontSize: '1.2rem',
             },
           },
         },

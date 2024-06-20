@@ -24,16 +24,21 @@ export default function RootLayout({
     <html lang="en">
       <body className={nanumGothicCoding.className}>
         <div className="main-box">
-          <div className="double-border flex flex-row justify-between mb-4">
-            <div className="flex flex-col justify-between">
-              <span className="sm:text-md md:text-3xl font-extrabold">
-                NO PROBLEM IS A BIG PROBLEM
-              </span>
-              <NavbarMenus />
+          <div style={{ marginBottom: '24rem' }}>
+            <div className="double-border flex flex-row justify-between mb-4">
+              <div className="flex flex-col justify-between">
+                <span className="sm:text-md md:text-3xl font-extrabold">
+                  NO PROBLEM IS A BIG PROBLEM
+                </span>
+                <NavbarMenus />
+              </div>
+              <QuarterCircle />
             </div>
-            <QuarterCircle />
+            {children}
           </div>
-          {children}
+          <div className="flex flex-col justify-start items-center">
+            <div>하이고니</div>
+          </div>
         </div>
       </body>
     </html>

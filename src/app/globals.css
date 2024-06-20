@@ -97,7 +97,7 @@
     padding: 1rem;
     background-color: #efeae1;
     /* height: 100dvh; */
-    width: 100dvw;
+    /* width: 100dvw; */
   }
   nav {
     font-size: 2rem;
@@ -134,6 +134,21 @@
     padding-top: var(--page-top);
     padding-bottom: var(--page-top);
     font-size: 1.6rem;
+  }
+
+  @media (max-width: 660px) {
+    body {
+      font-size: 1.6rem;
+    }
+
+    .main-box {
+      max-width: 90vw;
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: var(--page-top);
+      padding-bottom: var(--page-top);
+      font-size: 1.6rem;
+    }
   }
 
   .blog-logo {

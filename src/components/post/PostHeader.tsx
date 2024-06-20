@@ -13,7 +13,15 @@ const blackHanSans = Black_Han_Sans({
 
 export const PostHeader = ({ post }: PostHeaderProps) => {
   return (
-    <div className="grid grid-cols-5 gap-2 mb-4">
+    <div className="mt-24 mb-24">
+      <h1 style={{ fontSize: '1.6rem' }} className="mb-4">
+        {post.title}
+      </h1>
+      <div className="flex-row pb-0" style={{ fontSize: '1.4rem' }}>
+        <span>{post.readingMinutes} min read</span>
+        <span className="text-bold"> · </span>
+        <span>{post.dateString}</span>
+      </div>
       {/* <div className="col-span-4 border-2 border-slate-800 bg-transparent">
         <h1
           className={`text-[#efeae1] bg-black p-4 text-xl font-bold`}
