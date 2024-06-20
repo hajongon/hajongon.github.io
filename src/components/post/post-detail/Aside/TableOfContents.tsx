@@ -2,7 +2,7 @@
 import { throttle } from 'lodash-es'
 import { useEffect, useState } from 'react'
 
-import { type TOCSection } from '../../../mdx'
+import { type TOCSection } from '@/components/mdx'
 
 export default function TableOfContent({
   toc,

@@ -1,5 +1,5 @@
 // import Image from 'next/image'
-import { Post } from '../../../types/post'
+import { Post } from '@/types/post'
 import { Black_Han_Sans } from 'next/font/google'
 
 type PostHeaderProps = {

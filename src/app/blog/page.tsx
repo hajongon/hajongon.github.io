@@ -14,41 +14,47 @@ export default async function List() {
       : postList.length + ' ' + postfix.slice(0, -1)
   }
 
-  const getStringLength = (str: string) => {
-    let length = 0
-    for (let char of str) {
-      length += char.match(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/) ? 2 : 1
-    }
-    return length
-  }
+  // const getStringLength = (str: string) => {
+  //   let length = 0
+  //   for (let char of str) {
+  //     length += char.match(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/) ? 2 : 1
+  //   }
+  //   return length
+  // }
 
-  const generateDots = (category: string, maxLength: number) => {
-    const categoryLength = getStringLength(category)
-    const dotsLength = Math.floor(maxLength - categoryLength / 2 + 5)
-    return '·'.repeat(dotsLength > 0 ? dotsLength : 0)
-  }
+  // const generateDots = (category: string, maxLength: number) => {
+  //   const categoryLength = getStringLength(category)
+  //   const dotsLength = Math.floor(maxLength - categoryLength / 2 + 0)
+  //   return '·'.repeat(dotsLength > 0 ? dotsLength : 0)
+  // }
 
-  const maxCategoryLength = Math.max(
-    ...categoryList.map((category) => getStringLength(category)),
-  )
+  // const maxCategoryLength = Math.max(
+  //   ...categoryList.map((category) => getStringLength(category)),
+  // )
 
   return (
     <>
       <div className="vintage-horizontal-line m-4"></div>
       <section>
         <div className="grid md:grid-cols-10 gap-4">
-          <ul className="md:col-span-4 vintage-border pl-4 pr-4 pt-8 pb-8">
+          <ul className="md:col-span-5 vintage-border pl-4 pr-4 pt-8 pb-8">
             {categoryList.map((category, i) => (
               <li key={`${i}` + `${category}`}>
-                <Link href={`/blog/${category}`} className="category-link">
-                  <span>{category}</span>
-                  <span>{generateDots(category, maxCategoryLength)}</span>
-                  <span>{postsCount(category)}</span>
+                <Link
+                  href={`/blog/${category}`}
+                  className="category-link grid md:grid-cols-10 gap-4"
+                >
+                  <span className="md:col-span-5">{category}</span>
+                  <span className="md:col-span-1">···</span>
+                  <span className="md:col-span-4 text-end">
+                    {postsCount(category)}
+                  </span>
                 </Link>
               </li>
             ))}
           </ul>
-          <div className="md:col-span-6 vintage-border-2 pl-4 pr-4 pt-8 pb-8">
+          {/* <div className="md:col-span-5 vintage-border-2 pl-4 pr-4 pt-8 pb-8"> */}
+          <div className="md:col-span-5 vintage-border pl-4 pr-4 pt-8 pb-8">
             <div className="grid grid-cols-3 gap-4">
               <div className={`col-span-1 p-4 text-2xl`}>
                 <div className="mb-4">Front-end</div>

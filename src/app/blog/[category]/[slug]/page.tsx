@@ -1,9 +1,9 @@
 import { getCategoryList, getPostList, getPostDetail } from '@/lib/post'
-import PostHeader from '@/components/post/PostHeader'
-import { PostBody } from '@/components/post/PostBody'
-import { Aside } from '../../../../components/post/Aside/Aside'
-import TableOfContent from '../../../../components/post/Aside/TableOfContents'
-import { parseToc } from '../../../../mdx'
+import PostHeader from '@/components/post/post-detail/PostHeader'
+import { PostBody } from '@/components/post/post-detail/PostBody'
+import { Aside } from '@/components/post/post-detail/Aside/Aside'
+import TableOfContent from '@/components/post/post-detail/Aside/TableOfContents'
+import { parseToc } from '@/components/mdx'
 
 type PostDetailProps = {
   params: {

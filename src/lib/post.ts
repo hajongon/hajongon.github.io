@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import matter from 'gray-matter'
 import readingTime from 'reading-time'
 import { sync } from 'glob'
-import { Post } from '../../types/post'
+import { Post } from '@/types/post'
 
 const BASE_PATH = '/src/posts'
 const POSTS_PATH = path.join(process.cwd(), BASE_PATH)
