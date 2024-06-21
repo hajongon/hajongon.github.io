@@ -13,7 +13,7 @@ const blackHanSans = Black_Han_Sans({
 
 export const PostHeader = ({ post }: PostHeaderProps) => {
   return (
-    <div className="mt-24 mb-24">
+    <div className="mt-24 mb-12 pb-6 border-b border-secondary-foreground">
       <h1 style={{ fontSize: '1.6rem' }} className="mb-4">
         {post.title}
       </h1>

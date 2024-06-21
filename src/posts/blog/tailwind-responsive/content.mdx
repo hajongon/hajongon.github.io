@@ -1,0 +1,19 @@
+---
+title: 'tailwind 반응형 구현'
+date: 2024-06-21
+desc: tailwind 반응형 구현 (with max-size:)
+thumbnail: /posts/blog/tailwind-responsive/thumbnail_responsive.png
+---
+
+## 문제
+
+className에 `sm` 을 사용했을 때, `min-width: 640px`이 적용되기 때문에,
+className만 가지고는 640px 보다 작은 경우에 대해 css를 적용할 수 없었어요.
+
+## 해결
+
+className에 아래와 같이 작성해보세요!
+
+```jsx
+<div className="max-sm:text-slate-200">example</div>
+```

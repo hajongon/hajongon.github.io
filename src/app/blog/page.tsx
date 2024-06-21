@@ -34,7 +34,7 @@ export default async function List() {
               <Link href={latestPost.url}>
                 <Image
                   className="grayscale-image w-full mb-4 border border-slate-400"
-                  src={latestPost.thumbnail}
+                  src={latestPost.thumbnail || '/posts/bee_thumbnail.jpg'}
                   width={300}
                   height={300}
                   alt="latest post thumbnail"
@@ -48,7 +48,9 @@ export default async function List() {
                 <Link href={secondLatestPost.url}>
                   <Image
                     className="grayscale-image mb-4 w-full border border-slate-400"
-                    src={secondLatestPost.thumbnail}
+                    src={
+                      secondLatestPost.thumbnail || '/posts/bee_thumbnail.jpg'
+                    }
                     width={100}
                     height={100}
                     alt="second latest post thumbnail"

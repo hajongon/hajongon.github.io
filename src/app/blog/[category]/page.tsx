@@ -17,16 +17,30 @@ export async function generateStaticParams() {
 
 const CategoryPage = async ({ params: { category } }: CategoryPageProps) => {
   const postList = await getPostList(category)
+  const categories = await getCategoryList()
+
   return (
     <section>
+      <div className={`flex flex-row justify-start gap-4 mb-4 mt-12`}>
+        {categories.map((cat, i) => (
+          <div
+            key={i}
+            className={`pr-4 ${
+              i < categories.length - 1 ? 'border-r border-muted' : ''
+            }`}
+          >
+            {cat === category ? (
+              <span className="text-accent">{cat}</span>
+            ) : (
+              <Link href={`/blog/${cat}`}>{cat}</Link>
+            )}
+          </div>
+        ))}
+      </div>
       <div>
         <ul>
           {postList.map((post) => (
-            <li key={post.url + post.date}>
-              {/* <span>{post.date.toLocaleString()}</span>
-              <Link href={post.url} className="text-primary">
-                {post.title}
-              </Link> */}
+            <li key={post.url + post.date} className="mb-4">
               <div className="vintage-border grid grid-cols-3 gap-4">
                 <div className="col-span-2 grid grid-rows-5">
                   <div className="row-span-2 text-xl">
@@ -40,7 +54,7 @@ const CategoryPage = async ({ params: { category } }: CategoryPageProps) => {
                   <Link href={post.url}>
                     <Image
                       className="grayscale-image w-full border border-slate-600"
-                      src={post.thumbnail}
+                      src={post.thumbnail || '/posts/bee_thumbnail.jpg'}
                       width={100}
                       height={100}
                       alt="second latest post thumbnail"
