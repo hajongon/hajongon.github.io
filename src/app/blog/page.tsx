@@ -29,11 +29,11 @@ export default async function List() {
       <div className="vintage-horizontal-line m-4"></div>
       <section className="w-full">
         <div className="space-y-4 mb-4 w-full">
-          <div className="grid grid-cols-3 gap-4">
-            <div className="col-span-2 border border-slate-600 p-4">
+          <div className="grid sm:grid-cols-3 gap-4">
+            <div className="latest-posts sm:col-span-2 border border-slate-600 p-4">
               <Link href={latestPost.url}>
                 <Image
-                  className="grayscale-image w-full mb-4 border border-slate-600"
+                  className="grayscale-image w-full mb-4 border border-slate-400"
                   src={latestPost.thumbnail}
                   width={300}
                   height={300}
@@ -43,11 +43,11 @@ export default async function List() {
               </Link>
             </div>
 
-            <div className="col-span-1 grid grid-rows-4 gap-4">
-              <div className="border row-span-3 border-slate-600 p-4 w-full">
+            <div className="latest-posts sm:col-span-1 grid grid-rows-4 gap-4">
+              <div className="row-span-3 vintage-border p-4 w-full">
                 <Link href={secondLatestPost.url}>
                   <Image
-                    className="grayscale-image mb-4 w-full border border-slate-600"
+                    className="grayscale-image mb-4 w-full border border-slate-400"
                     src={secondLatestPost.thumbnail}
                     width={100}
                     height={100}
@@ -56,7 +56,7 @@ export default async function List() {
                   <div className="text-xl">{secondLatestPost.title}</div>
                 </Link>
               </div>
-              <div className="border row-span-1 border-slate-600 p-4">
+              <div className="vintage-border row-span-1 p-4">
                 <Link href={thirdLatestPost.url}>
                   {/* <Image
                     className="grayscale-image w-full mb-4"
@@ -78,11 +78,11 @@ export default async function List() {
               <li key={`${i}` + `${category}`}>
                 <Link
                   href={`/blog/${category}`}
-                  className="category-link grid md:grid-cols-10 gap-4"
+                  className="category-link grid grid-cols-10 gap-4"
                 >
-                  <span className="md:col-span-5">{category}</span>
-                  <span className="md:col-span-1">···</span>
-                  <span className="md:col-span-4 text-end">
+                  <span className="col-span-5">{category}</span>
+                  <span className="col-span-1">···</span>
+                  <span className="col-span-4 text-end">
                     {await postsCount(category)}
                   </span>
                 </Link>

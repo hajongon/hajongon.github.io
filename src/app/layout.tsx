@@ -23,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={nanumGothicCoding.className}>
+        <div className="blur-box" />
         <div className="main-box">
           <div style={{ marginBottom: '24rem' }}>
             <div className="double-border flex flex-row justify-between mb-4">

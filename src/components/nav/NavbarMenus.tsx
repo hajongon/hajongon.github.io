@@ -2,9 +2,9 @@ import Link from 'next/link'
 
 export const NavbarMenus = () => {
   return (
-    <div className="flex flex-row flex-start gap-x-4 ml-4 p-2">
+    <div className="nav-menus flex flex-row flex-start gap-x-4 ml-4 p-2">
       <Link href="/blog" className="-rotate-5 border-b border-black">
-        <span className="sm:text-lg xs:text-sm">HOME</span>
+        <span className="sm:text-xl">HOME</span>
       </Link>
       <Link
         href="https://github.com/hajongon"
@@ -12,7 +12,7 @@ export const NavbarMenus = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span className="sm:text-lg xs:text-sm">GITHUB</span>
+        <span className="sm:text-xl">GITHUB</span>
       </Link>
       <Link
         href="https://instagram.com/h4gon"
@@ -20,7 +20,7 @@ export const NavbarMenus = () => {
         rel="noopener noreferrer"
         className="-rotate-5 border-b border-black"
       >
-        <span className="sm:text-lg xs:text-sm">INSTAGRAM</span>
+        <span className="sm:text-xl">INSTAGRAM</span>
       </Link>
     </div>
   )
