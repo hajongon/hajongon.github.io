@@ -1,0 +1,139 @@
+---
+title: 'Spring 인터페이스'
+date: 2024-07-03
+desc: 인터페이스의 필요성과 역할
+thumbnail: /posts/spring/spring.webp
+---
+
+앞선 게시글들에서 '여러 동물 소리 내기 프로그램'을 다뤄봤어요.
+인터페이스를 사용하면 코드를 수정하지 않고도 다양한 동물 클래스를 주입할 수 있게 돼요.
+
+## 예시: 인터페이스를 사용한 DI
+
+1. `Animal.java` (인터페이스)
+```java
+package com.example;
+
+public interface Animal {
+    void makeSound();
+}
+```
+
+2. `Dog.java`
+```java
+package com.example;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Dog implements Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Woof!");
+    }
+}
+```
+
+3. `Cat.java`
+```java
+package com.example;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Cat implements Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Meow!");
+    }
+}
+```
+
+4. `AnimalSound.java`
+```java
+package com.example;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class AnimalSound {
+    private Animal animal;
+
+    @Autowired
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
+    }
+
+    public void makeSound() {
+        animal.makeSound();
+    }
+}
+```
+
+5. `Main.java`
+```java
+package com.example;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "com.example")
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
+
+        AnimalSound animalSound = context.getBean(AnimalSound.class);
+        animalSound.makeSound(); // 현재 설정에 따라 "Woof!" 또는 "Meow!" 출력
+    }
+}
+```
+
+## 설명
+- 인터페이스 (`Animal.java`): `Animal` 인터페이스를 정의해서 `Dog`와 `Cat` 클래스가 이 인터페이스를 구현하게 했어요. 이렇게 하면 `Dog`와 `Cat`은 모두 `Animal` 타입이 돼요.
+- `@Autowired`: `AnimalSound` 클래스에서는 `Animal` 타입의 객체를 주입받아요. Spring이 `Dog` 또는 `Cat`을 자동으로 주입해줘요.
+- 코드 수정 없이 교체 가능: 이제 `AnimalSound` 클래스는 `Animal` 인터페이스만 사용하므로, `Dog` 대신 `Cat`을 주입할 때 `AnimalSound` 코드를 수정할 필요가 없어요. 설정이나 어노테이션만 변경하면 돼요.
+- 특정 동물 주입 설정 변경: 만약 `Dog` 대신 `Cat`을 주입하고 싶다면, Spring 설정을 통해 이를 지정할 수 있어요.
+
+```java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public Animal animal() {
+        return new Cat(); // Cat 객체를 반환
+    }
+}
+```
+또는 @Primary 어노테이션을 사용할 수도 있어요.
+
+`Cat.java`에 `@Primary` 추가
+```java
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+
+@Component
+@Primary
+public class Cat implements Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Meow!");
+    }
+}
+```
+
+이렇게 하면 `Animal` 타입의 빈을 주입할 때 `Cat`이 기본적으로 주입돼요. 이제 코드를 수정하지 않고도 쉽게 다른 동물 클래스를 사용할 수 있어요.
+
+## 결론
+
+이처럼 인터페이스를 사용하면 코드의 유연성과 확장성을 높일 수 있어요. `Animal` 인터페이스를 도입함으로써 `Dog`와 `Cat` 같은 다양한 동물 클래스를 쉽게 주입할 수 있게 되었어요. 이를 통해 `AnimalSound` 클래스는 구체적인 동물 클래스에 의존하지 않게 되므로, 새로운 동물 클래스를 추가하거나 기존 클래스를 교체할 때 코드 수정 없이 설정만 변경하면 되는 거죠.
+
+Spring의 DI와 IoC 기능을 활용하면, 이러한 인터페이스 기반 설계가 더욱 강력해지겠죠? 어노테이션을 사용한 자동 빈 등록과 의존성 주입 덕분에 설정 파일을 최소화하고, 코드의 가독성과 유지보수성을 높일 수 있기 때문입니다. 또한, 인터페이스와 DI를 결합하면 테스트도 용이해지며, 프로그램의 변경 요구사항에 유연하게 대응할 수 있습니다.
+
+결국, 인터페이스는 코드의 결합도를 낮추고 재사용성을 높이며, Spring의 DI와 IoC는 이를 더욱 쉽게 구현하도록 도와줍니다.

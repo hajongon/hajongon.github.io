@@ -1,0 +1,167 @@
+---
+title: 'Spring DI, IoC'
+date: 2024-07-03
+desc: 제어의 역전, 의존성 주입
+thumbnail: /posts/spring/dependency.webp
+---
+
+
+## IoC (Inversion of Control, 제어의 역전)
+
+예를 들어, 우리가 로봇을 만든다고 생각해볼게요. 우리는 로봇의 팔, 다리, 머리 등 모든 부품을 직접 조립하고 조정해야 해요. 그런데 만약 로봇이 스스로 필요한 부품을 찾아서 조립할 수 있다면 얼마나 편할까나요?
+
+IoC는 프로그램이 스스로 필요한 것들을 찾아서 사용할 수 있게 도와주는 개념입니다. 즉, 우리가 모든 걸 직접 제어하지 않아도 프로그램이 스스로 할 수 있게 만드는 것이죠.
+
+## DI (Dependency Injection, 의존성 주입)
+
+우리가 아까 만든 로봇을 다시 생각해봅시다. 로봇이 스스로 필요한 부품을 찾을 수 있게 만들었죠. 하지만 로봇에게 어떤 부품이 필요한지 어떻게 알 수 있을까요? 
+여기서 DI가 필요한 것입니다.
+
+DI는 로봇에게 필요한 부품들을 미리 준비해서 주입해주는 것입니다. 예를 들어, 팔이 필요하다면 그걸 만들어서 주는 거죠. 이렇게 하면 로봇은 필요한 부품을 찾지 않아도 되고, 우리는 더 쉽게 로봇을 만들 수 있어요.
+
+## Spring에서의 IoC와 DI
+
+Spring은 바로 이런 IoC와 DI를 쉽게 할 수 있게 도와주는 도구입니다. Spring을 사용하면 프로그램이 스스로 필요한 것들을 찾고 사용할 수 있게 만들 수 있고, 필요한 것들을 쉽게 주입해줄 수 있죠.
+
+예를 들어, 우리가 프로그램을 만들 때 어떤 기능이 필요하면 Spring이 그걸 자동으로 찾아서 연결해줍니다. 그래서 우리는 더 쉽게 프로그램을 만들 수 있고, 나중에 고치기도 쉽겠죠.
+
+
+## Example: 여러 동물 소리를 내는 프로그램
+
+아주 간단한 예시로 개념을 이해해보도록 합시다.
+
+### Spring 없이 구현
+
+
+```java
+class Dog {
+    public void bark() {
+        System.out.println("Woof!");
+    }
+}
+
+class Cat {
+    public void meow() {
+        System.out.println("Meow!");
+    }
+}
+
+class AnimalSound {
+    private Dog dog;
+    private Cat cat;
+
+    public AnimalSound() {
+        this.dog = new Dog(); // Dog 객체를 직접 생성
+        this.cat = new Cat(); // Cat 객체를 직접 생성
+    }
+
+    public void makeSound() {
+        dog.bark();
+        cat.meow();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        AnimalSound animalSound = new AnimalSound();
+        animalSound.makeSound(); // "Woof!"와 "Meow!" 출력
+    }
+}
+```
+
+위 코드에서 우리는 `Dog`와 `Cat` 객체를 직접 생성하고 `AnimalSound` 클래스에 주입했어요. 이는 다음과 같은 문제를 가져올 수 있어요.
+1. 높은 결합도: `AnimalSound` 클래스는 `Dog` 클래스와 `Cat` 클래스에 강하게 결합되어 있어요. 새로운 동물을 추가하거나 기존 동물을 교체하려면 `AnimalSound` 코드를 수정해야 해요.
+2. 테스트 어려움: 각 동물 클래스를 주입할 때마다 새로운 인스턴스를 생성하므로, 단위 테스트 작성이 어려워요.
+
+
+### Spring 사용
+
+1. 인터페이스 정의
+```java
+package com.example;
+
+public interface Animal {
+    void makeSound();
+}
+```
+
+2. Dog 클래스
+```java
+package com.example;
+
+public class Dog implements Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Woof!");
+    }
+}
+```
+
+3. Cat 클래스
+```java
+package com.example;
+
+public class Cat implements Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Meow!");
+    }
+}
+```
+
+4. AnimalSound 클래스
+```java
+package com.example;
+
+import java.util.List;
+
+public class AnimalSound {
+    private List<Animal> animals;
+
+    public void setAnimals(List<Animal> animals) {
+        this.animals = animals;
+    }
+
+    public void makeSound() {
+        for (Animal animal : animals) {
+            animal.makeSound();
+        }
+    }
+}
+```
+
+5. `beans.xml` 설정 파일
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Dog Bean -->
+    <bean id="dog" class="com.example.Dog"/>
+
+    <!-- Cat Bean -->
+    <bean id="cat" class="com.example.Cat"/>
+
+    <!-- AnimalSound Bean -->
+    <bean id="animalSound" class="com.example.AnimalSound">
+        <property name="animals">
+            <list>
+                <ref bean="dog"/>
+                <ref bean="cat"/>
+            </list>
+        </property>
+    </bean>
+</beans>
+```
+
+### 편리해진 점
+1. 의존성 관리가 쉬워짐: `AnimalSound` 클래스가 `Dog`와 `Cat` 객체를 직접 생성하지 않고 Spring이 주입해줘요. 
+2. 유연성 증가: `beans.xml` 파일만 수정하면 `AnimalSound` 클래스에 주입되는 동물 객체를 쉽게 변경할 수 있어요. 예를 들어, 새로운 동물 Cow를 추가할 때, `AnimalSound` 클래스를 수정할 필요 없이 `beans.xml` 파일에 Cow를 추가하면 됩니다.
+3. 테스트 용이성: Spring 컨테이너를 통해 객체를 주입받기 때문에, 단위 테스트 시 Mock 객체를 주입하거나 필요한 객체를 쉽게 주입하여 테스트할 수 있어요.
+4. 재사용성 증가: 설정 파일을 통해 객체 간의 의존성을 관리하므로, 특정 객체를 다른 클래스에서 재사용하기가 더 쉬워져요.
+
+## 결론
+
+Spring의 DI와 IoC를 사용하면 코드의 결합도를 낮추고 유지보수를 쉽게 할 수 있어요. Spring 없이 구현한 경우에는 객체 생성과 의존성 관리가 코드에 강하게 결합되어 있지만, Spring을 사용하면 이러한 부분을 설정 파일(`beans.xml`)로 분리하여 관리할 수 있습니다. 이는 코드의 유연성과 재사용성을 크게 향상시킵니다!

@@ -1,0 +1,198 @@
+---
+title: 'Spring 어노테이션'
+date: 2024-07-04
+desc: 어노테이션의 필요성과 역할
+thumbnail: /posts/spring/annotation.webp
+---
+
+## 어노테이션 사용하기
+
+
+`Dog.java`
+```java
+package com.example;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Dog {
+    public void bark() {
+        System.out.println("woof!");
+    }
+}
+```
+
+`AnimalSound.java`
+```java
+package com.example;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class AnimalSound {
+    private Dog dog;
+
+    @Autowired
+    public void setDog(Dog dog) {
+        this.dog = dog;
+    }
+
+    public void makeSound() {
+        dog.bark();
+    }
+}
+```
+
+`Main.java`
+```java
+package com.example;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "com.example")
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
+
+        AnimalSound animalSound = context.getBean(AnimalSound.class);
+        animalSound.makeSound(); // "Woof!" 출력
+    }
+}
+```
+
+1. `@Component`: Spring에게 이 클래스가 Bean이라고 알려줘요. Spring은 이 Bean을 자동으로 생성하고 관리해요.
+2. `@Autowired`: Spring에게 이 필드나 메소드에 의존성을 주입해달라고 요청해요. 여기서는 `setDog` 메서드에 `Dog` 객체를 주입해줘요.
+3. `@Configuration`과 `@ComponentScan`: `Main` 클래스에서 Spring 설정을 대신해줘요. `@ComponentScan`은 `com.example` 패키지를 스캔해서 번들을 찾고 등록해요.
+
+
+이제 다른 동물 클래스를 사용해볼까요? 예를 들어 `Dog` 대신 `Cat` 클래스를 추가하고 싶다면 다음과 같이 해볼 수 있어요.
+
+`Cat.java`
+```java
+package com.example;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Cat {
+    public void meow() {
+        System.out.println("Meow!");
+    }
+}
+```
+
+`AnimalSound.java` 수정
+```java
+package com.example;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class AnimalSound {
+    private Cat cat;
+
+    @Autowired
+    public void setCat(Cat cat) {
+        this.cat = cat;
+    }
+
+    public void makeSound() {
+        cat.meow();
+    }
+}
+```
+
+
+## 어노테이션의 편의성
+
+### 1. 설정 용이
+
+`XML`
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dog" class="com.example.Dog"/>
+    <bean id="animalSound" class="com.example.AnimalSound">
+        <property name="dog" ref="dog"/>
+    </bean>
+</beans>
+```
+
+`어노테이션`
+```java
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "com.example")
+public class AppConfig {
+}
+```
+
+### 2. 빈 등록과 의존성 주입이 편리함
+
+`XML`
+```xml
+<bean id="animalSound" class="com.example.AnimalSound">
+    <property name="dog" ref="dog"/>
+</bean>
+```
+
+`어노테이션`
+```java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class AnimalSound {
+    private Dog dog;
+
+    @Autowired
+    public void setDog(Dog dog) {
+        this.dog = dog;
+    }
+
+    public void makeSound() {
+        dog.bark();
+    }
+}
+```
+
+### 3. 중복 코드 줄일 수 있음
+
+- XML 설정: 변경 사항이 생기면 설정 파일과 클래스 모두 수정해야 함
+- 어노테이션 설정: 클래스 파일 내에서 직접 설정을 관리하므로 클래스 파일만 수정
+
+### 4. 자동 빈 검색 및 등록 용이
+
+- `@ComponentScan` 어노테이션을 사용하면 특정 패키지 내의 모든 빈을 자동으로 검색하고 등록할 수 있어요.
+
+- XML 설정의 경우 모든 빈을 일일이 XML 파일에 등록해야 해요.
+
+`어노테이션`
+```java
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "com.example")
+public class AppConfig {
+}
+```
+
+이렇게 하면 `com.example` 패키지 내에 있는 `@Component` 어노테이션이 붙은 클래스는 모두 빈으로 등록돼요.
+
+
+
+
+## 결론
+어노테이션을 사용하면 코드의 중복을 줄이고, 설정 파일을 최소화하며, 변경 사항이 있을 때 유지보수가 쉬워져요. 설정이 코드에 가까워지기 때문에, 코드와 설정의 일관성을 유지하기도 더 쉽습니다. 이러한 이유들 때문에 어노테이션이 XML 설정보다 더 편리하게 느껴질 수 있어요.
