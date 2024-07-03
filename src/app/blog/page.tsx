@@ -39,7 +39,9 @@ export default async function List() {
                   height={300}
                   alt="latest post thumbnail"
                 />
-                <div className="text-2xl mb-4">{latestPost.title}</div>
+                <div className="text-2xl mb-4">
+                  [{latestPost.category}] {latestPost.title}
+                </div>
               </Link>
             </div>
 
@@ -55,7 +57,9 @@ export default async function List() {
                     height={100}
                     alt="second latest post thumbnail"
                   />
-                  <div className="text-xl">{secondLatestPost.title}</div>
+                  <div className="text-xl">
+                    [{secondLatestPost.category}] {secondLatestPost.title}
+                  </div>
                 </Link>
               </div>
               <div className="vintage-border row-span-1 p-4">
@@ -67,7 +71,9 @@ export default async function List() {
                     height={150}
                     alt="third latest post thumbnail"
                   /> */}
-                  <div className="text-xl mb-4">{thirdLatestPost.title}</div>
+                  <div className="text-xl mb-4">
+                    [{thirdLatestPost.category}] {thirdLatestPost.title}
+                  </div>
                 </Link>
               </div>
             </div>
