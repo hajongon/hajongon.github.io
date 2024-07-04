@@ -76,7 +76,7 @@ jobs:
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Generate Sitemap
-        run: ${{ steps.detect-package-manager.outputs.runner }} next-sitemap
+        run: ${{ steps.detect-package-manager.outputs.runner }} next-sitemap && cp -r ./public/sitemap*.xml ./out/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
