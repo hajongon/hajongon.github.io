@@ -4,6 +4,7 @@ import './globals.css'
 
 import { QuarterCircle } from '@/components/nav/QuarterCircle'
 import { NavbarMenus } from '../components/nav/NavbarMenus'
+import Head from 'next/head'
 
 const nanumGothicCoding = Nanum_Gothic_Coding({
   weight: ['400'],
@@ -13,6 +14,9 @@ const nanumGothicCoding = Nanum_Gothic_Coding({
 export const metadata: Metadata = {
   title: '하이고니.dev',
   description: '하이고니의 개발 블로그입니다.',
+  verification: {
+    google: 'q7_2WcXhqP60Arbc77AyGpiDkzMxRJ-DNfH3pxHGtMc',
+  },
 }
 
 export default function RootLayout({
