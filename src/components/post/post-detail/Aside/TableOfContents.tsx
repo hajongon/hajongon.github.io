@@ -20,7 +20,6 @@ export default function TableOfContent({
       className={`space-y-2.5 font-sans lg:block md:hidden ${className}`}
     >
       {toc.map((section, i) => {
-        console.log(currentSectionSlug, section.slug)
         return (
           <li key={i} className="flex">
             <a

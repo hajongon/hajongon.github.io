@@ -25,9 +25,19 @@ export type TOCSection = TOCSubSection & {
 }
 
 export const parseToc = (source: string) => {
+  let inCodeBlock = false
+
   return source
     .split('\n')
-    .filter((line) => line.match(/(^#{1,3})\s/))
+    .filter((line) => {
+      if (line.match(/^```/)) {
+        inCodeBlock = !inCodeBlock // 코드 블록의 시작과 끝을 토글
+      }
+      if (inCodeBlock) {
+        return false // 코드 블록 내부의 라인은 제외
+      }
+      return line.match(/(^#{1,3})\s/) // 제목 라인만 포함
+    })
     .reduce<TOCSection[]>((ac, rawHeading) => {
       const nac = [...ac]
       const removeMdx = rawHeading
@@ -35,10 +45,12 @@ export const parseToc = (source: string) => {
         .replace(/[\*,\~]{2,}/g, '')
         .replace(/(?<=\])\((.*?)\)/g, '')
         .replace(/(?<!\S)((http)(s?):\/\/|www\.).+?(?=\s)/g, '')
+        .trim()
+
+      if (!removeMdx) return nac // 빈 제목은 제외
 
       const section = {
         slug: removeMdx
-          .trim()
           .toLowerCase()
           .replace(/[^a-z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣 -]/g, '')
           .replace(/\s/g, '-'),
@@ -55,54 +67,4 @@ export const parseToc = (source: string) => {
 
       return nac
     }, [])
-}
-
-export const MdxComponents = {
-  // a: ExternalLink as any,
-  img: Image as any,
-  h1: (props: any) => (
-    <h1
-      style={{
-        fontSize: '1.6rem',
-        fontWeight: 'bold',
-        marginBottom: '0.8rem',
-      }}
-      {...props}
-    />
-  ),
-  h2: (props: any) => (
-    <h2
-      style={{
-        fontSize: '1.6rem',
-        fontWeight: 'bolder',
-        marginBottom: '0.8rem',
-      }}
-      {...props}
-    />
-  ),
-  h3: (props: any) => (
-    <h3 style={{ fontSize: '1.6rem', marginBottom: '0.8rem' }} {...props} />
-  ),
-
-  h4: (props: any) => (
-    <h4
-      style={{
-        fontSize: '1.6rem',
-        fontWeight: 'bolder',
-        marginBottom: '0.8rem',
-      }}
-      {...props}
-    />
-  ),
-
-  p: (props: any) => (
-    <p
-      style={{ fontSize: '1.6rem', marginBottom: '0.8rem' }}
-      className="text-slate-600"
-      {...props}
-    />
-  ),
-  blockquote: Callout,
-  Callout,
-  pre: Pre as any,
 }
