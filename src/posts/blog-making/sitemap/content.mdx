@@ -8,6 +8,12 @@ thumbnail: /img/thumbnails/ninja-turtle.jpg
 
 ## 목표
 
+구글에서 내 블로그가 검색되게 하기
+
+## 과정
+
+### next-sitemap
+
 ```yml
 # Sample workflow for building and deploying a Next.js site to GitHub Pages
 #
@@ -113,6 +119,7 @@ jobs:
 </div>
 
 
+### 이슈
 
 개발 서버에서는
 
@@ -125,3 +132,22 @@ jobs:
 <div style={{width: "100%"}}>
 ![404 error](/posts/blog-making/sitemap/404error.png)
 </div>
+
+
+### 해결
+
+`next-sitemap` 실행 시에, public 폴더에는 sitemap 파일이 생기지만, out 폴더에 생기지 않아서 배포 이후 파일을 찾지 못하던 것이었다.
+
+github flow 파일에 다음 코드를 추가했다.
+
+```yml
+ - name: Generate Sitemap
+        run: ${{ steps.detect-package-manager.outputs.runner }} next-sitemap && cp -r ./public/sitemap*.xml ./out/
+```
+
+
+<div style={{width: "100%"}}>
+![404 error](/posts/blog-making/sitemap/sitemap-xml.png)
+</div>
+
+이제 잘 나옵니다 ㅎㅎ
