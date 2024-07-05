@@ -36,7 +36,7 @@ export const parseToc = (source: string) => {
       if (inCodeBlock) {
         return false // 코드 블록 내부의 라인은 제외
       }
-      return line.match(/(^#{1,3})\s/) // 제목 라인만 포함
+      return line.match(/(^#{1,3})\s/) // h1, h2, h3 제목 라인 포함
     })
     .reduce<TOCSection[]>((ac, rawHeading) => {
       const nac = [...ac]
@@ -49,7 +49,7 @@ export const parseToc = (source: string) => {
 
       if (!removeMdx) return nac // 빈 제목은 제외
 
-      const section = {
+      const section: TOCSubSection = {
         slug: removeMdx
           .toLowerCase()
           .replace(/[^a-z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣 -]/g, '')
@@ -57,14 +57,20 @@ export const parseToc = (source: string) => {
         text: removeMdx,
       }
 
-      const isSubTitle = rawHeading.split('#').length - 1 === 3
+      const headingLevel = rawHeading.split('#').length - 1
 
-      if (ac.length && isSubTitle) {
-        nac.at(-1)?.subSections.push(section)
+      if (headingLevel === 3) {
+        // h3인 경우 가장 최근 h2의 subSections에 추가
+        if (nac.length > 0) {
+          nac[nac.length - 1].subSections.push(section)
+        }
       } else {
         nac.push({ ...section, subSections: [] })
       }
 
+      // return nac
+
+      // nac.push({ ...section, subSections: [] })
       return nac
     }, [])
 }

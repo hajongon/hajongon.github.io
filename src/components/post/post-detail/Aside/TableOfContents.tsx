@@ -53,7 +53,7 @@ const useTocScroll = (tableOfContents: TOCSection[]) => {
 
     const onResize = () => {
       headings = Array.from(
-        document.querySelectorAll<HTMLElement>('.mdx h1, .mdx h2'),
+        document.querySelectorAll<HTMLElement>('.mdx h1, .mdx h2, .mdx h3'),
       ).map((element) => ({
         id: element.id,
         top: element.offsetTop,
