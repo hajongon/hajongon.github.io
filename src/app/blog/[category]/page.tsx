@@ -54,7 +54,7 @@ const CategoryPage = async ({ params: { category } }: CategoryPageProps) => {
                   <Link href={post.url}>
                     <Image
                       className="grayscale-image w-full border border-slate-600"
-                      src={post.thumbnail || '/posts/bee_thumbnail.jpg'}
+                      src={post.thumbnail || '/img/thumbnails/ninja-turtle.jpg'}
                       width={100}
                       height={100}
                       alt="second latest post thumbnail"
