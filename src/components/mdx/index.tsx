@@ -123,4 +123,5 @@ export const MdxComponents = {
   blockquote: Callout,
   Callout,
   pre: Pre as any,
+  hr: (props: any) => <hr style={{ borderColor: '#efeae1' }} />,
 }

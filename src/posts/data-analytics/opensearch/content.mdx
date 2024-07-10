@@ -1,0 +1,106 @@
+---
+title: 'OpenSearch로 데이터 분석해보기'
+date: 2024-07-10
+desc: '-'
+thumbnail: /img/thumbnails/ninja-turtle.jpg
+---
+
+## OpenSearch와 RDBMS 비교
+---
+
+
+| **RDB**                  | **OpenSearch**                                     |
+|---------------------------|----------------------------------------------------|
+| DB           | Index                      |
+| Table | Type
+| Row             | Document     | 
+| Column                | Field         |
+| Schema                | Mapping                                    | 
+| PK                | Document ID                                |
+
+
+---
+
+
+## 인덱스 생성
+
+### OpenSearch Dev Tool 쿼리문
+
+```json
+PUT /index_name
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+    "properties": {
+      "field1": {
+        "type": "text"
+      }
+    }
+  }
+}
+```
+
+### Java Service
+
+```java
+public String createIndex(String indexName) throws IOException {
+    GetIndexRequest request = new GetIndexRequest(indexName);
+    boolean exists = client.indices().exists(request, RequestOptions.DEFAULT);
+    if (!exists) {
+        CreateIndexRequest createIndexRequest = new CreateIndexRequest(indexName);
+        CreateIndexResponse createIndexResponse = client.indices().create(createIndexRequest, RequestOptions.DEFAULT);
+        System.out.println("Index Created: " + createIndexResponse.index());
+        return createIndexResponse.index();
+    } else {
+        System.out.println("Index already exists.");
+        return "Index already exists.";
+    }
+}
+```
+
+## Document 삽입
+
+```json
+POST /hajongon/_doc
+{
+  "type": "test1",
+  "@timestamp": "2023-07-10T12:34:56Z",
+  "age": 32
+}
+```
+<div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: "100%"}}>
+![index-document-response](/posts/data-analytics/opensearch/index-document-response.png)
+</div>
+
+Dev Tools에서 `hajongon`이라는 index 내부 `test1`이라는 type에 데이터를 삽입합니다. `@timestamp`는 아래에서 더 다룰 예정이니 집중해주세요~
+
+## 인덱스 패턴 설정
+<div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: "600px"}}>
+![stack-management](/posts/data-analytics/opensearch/stack-management.png)
+</div>
+
+1. Stack Management 에 들어갑니다.
+
+<div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: "600px"}}>
+![index-pattern-menu](/posts/data-analytics/opensearch/index-pattern-menu.png)
+</div>
+
+2. Index Patterns 메뉴를 클릭합니다.
+3. Create Index Pattern 버튼을 클릭합니다.
+4. 사용할 index pattern name을 입력하고 Next step 버튼을 클릭합니다.
+5. Index Pattern의 Time Field를 설정합니다. (이미 삽입된 document가 있어야 가능)
+
+<div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: "100%"}}>
+![create-index-pattern](/posts/data-analytics/opensearch/create-index-pattern.png)
+</div>
+
+위에서 입력한 데이터에 있던 `@timestamp` 필드를 Time Field로 지정합니다.
+
+<div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: "100%"}}>
+![discover-chart-1](/posts/data-analytics/opensearch/discover-chart-1.png)
+</div>
+
+Time Field에 의해 데이터가 정렬되고, 그걸 기반으로 한 차트토 볼 수 있습니다. (시간 별로 입력받은 데이터 수)
