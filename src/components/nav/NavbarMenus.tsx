@@ -6,6 +6,9 @@ export const NavbarMenus = () => {
       <Link href="/blog" className="-rotate-5 border-b border-black">
         <span className="sm:text-xl">HOME</span>
       </Link>
+      <Link href="/project" className="-rotate-5 border-b border-black">
+        <span className="sm:text-xl">PROJECT</span>
+      </Link>
       <Link
         href="https://github.com/hajongon"
         className="-rotate-5 border-b border-black"

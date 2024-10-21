@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
 import { Nanum_Gothic_Coding } from 'next/font/google'
 import './globals.css'
-
 import { QuarterCircle } from '@/components/nav/QuarterCircle'
 import { NavbarMenus } from '../components/nav/NavbarMenus'
-import Head from 'next/head'
+import localFont from 'next/font/local'
+
+const maruBuri = localFont({
+  src: 'fonts/maruburi/TTF/MaruBuri-Regular.ttf',
+})
 
 const nanumGothicCoding = Nanum_Gothic_Coding({
   weight: ['400'],
@@ -29,9 +32,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={nanumGothicCoding.className}>
+      <body className={maruBuri.className}>
         <div className="blur-box" />
-
         <div className="main-box">
           <div className="double-border flex flex-row justify-between mb-4">
             <div className="flex flex-col justify-between">

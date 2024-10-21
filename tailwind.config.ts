@@ -1,4 +1,3 @@
-import { Exo_2 } from 'next/font/google'
 import type { Config } from 'tailwindcss'
 
 const config = {
