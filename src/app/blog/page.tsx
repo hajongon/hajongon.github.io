@@ -100,6 +100,7 @@ export default async function List() {
               </li>
             ))}
           </ul>
+          {/* hajongon 캐릭터 박스 */}
           <div className="md:col-span-5 vintage-border pl-4 pr-4 pt-8 pb-8">
             <div className="grid grid-cols-3 gap-4">
               <div className={`col-span-1 p-4 text-2xl`}>
@@ -109,7 +110,7 @@ export default async function List() {
               </div>
               <div className="col-span-2 p-4">
                 <Image
-                  className="grayscale-image"
+                  className="grayscale-image hover-rotate"
                   src="/img/character-1.png"
                   width={300}
                   height={300}
