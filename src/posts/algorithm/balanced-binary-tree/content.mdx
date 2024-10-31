@@ -1,0 +1,50 @@
+---
+title: 'DFS - Balanced Binary Tree'
+date: 2024-06-21
+desc: 
+---
+
+## 문제
+
+- 서브트리의 좌우 깊이가 2 이상 차이나면 false 리턴
+- 서브트리의 좌우 깊이가 1 이하면 true 리턴
+
+## 풀이
+
+- 
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+
+var isBalanced = function(root) {
+
+    function recursion(node) {
+
+        if (node == null) return 0
+        const leftDepth = recursion(node.left)
+        const rightDepth = recursion(node.right)
+
+        if (leftDepth === -1 
+            || rightDepth === -1 
+            || Math.abs(leftDepth - rightDepth) > 1) {
+            return -1
+        }
+        return Math.max(leftDepth, rightDepth) + 1
+    }
+    const result = recursion(root)
+    if (result !== -1) {
+        return true
+    } else return false
+};
+```
